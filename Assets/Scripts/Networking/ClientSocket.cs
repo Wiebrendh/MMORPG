@@ -53,12 +53,12 @@ public class ClientSocket : MonoBehaviour
             {
                 // Start a thread for receiveing player data
                 receiveThread = new Thread(ReceiveData);
-                //receiveThread.Start();
+                receiveThread.Start();
 
                 // Send a packet containg the player his name
                 List<byte> packet = new List<byte>();
                 packet.AddRange(BitConverter.GetBytes((ushort)/*game.playerName.Length*/5));
-                packet.AddRange(Encoding.ASCII.GetBytes(/*game.playerName*/"12345"));
+                packet.AddRange(Encoding.ASCII.GetBytes(/*game.playerName*/"12346"));
                 socket.Send(packet.ToArray(), SocketFlags.None);
             }
         }
@@ -103,7 +103,5 @@ public class ClientSocket : MonoBehaviour
     {
         receiveThread.Abort();
         receiveThread = null;
-
-        Debug.Log(receiveThread.IsAlive);
     }
 }

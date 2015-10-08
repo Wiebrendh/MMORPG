@@ -25,14 +25,14 @@ public class PacketSender : MonoBehaviour
         socket.socket.Close();
     }
 
-    public void SendWantedPosition () // Send packet with player transforms
+    public void SendWantedPosition (Vector2 pos) // Send packet with player transforms
 	{
 		List<byte> packet = new List<byte>();
         
         packet.AddRange(BitConverter.GetBytes((ushort)0)); // Packet type
         packet.AddRange(BitConverter.GetBytes((ushort)game.playerID)); // Player id
-        packet.AddRange(BitConverter.GetBytes((double)game.position.x)); // Player pos x
-        packet.AddRange(BitConverter.GetBytes((double)game.position.z)); // Player pos z
+        packet.AddRange(BitConverter.GetBytes((double)pos.x)); // Player pos x
+        packet.AddRange(BitConverter.GetBytes((double)pos.y)); // Player pos z
 
         // Send packet
         socket.socket.Send(packet.ToArray(), SocketFlags.None);

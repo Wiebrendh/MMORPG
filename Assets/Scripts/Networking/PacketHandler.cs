@@ -18,6 +18,9 @@ public class PacketHandler : MonoBehaviour
 		    case 0:
 			    ConnectedToServer(packet, _socket);
 			    break;
+            case 1:
+                Debug.Log("1");
+                break;
 		}
 	}
 	
