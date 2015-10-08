@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Node
+public class Node : MonoBehaviour
 {
 
     public bool walkable;

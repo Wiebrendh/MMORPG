@@ -10,7 +10,9 @@ public enum PlayerActions { WalkHere, RandomAction, Examine };
 public class ActionMenu : MonoBehaviour
 {
 
+    public Game game;
     public PacketSender sender;
+    public LocalPlayer localPlayer;
 
     [Space(10)]
 
@@ -19,6 +21,10 @@ public class ActionMenu : MonoBehaviour
     public Vector2 actionMenuScreenPos;
     public Actions currentAction;
 	
+    void Start ()
+    {
+    }
+
 	void Update ()
     {
 	    if (Input.GetButtonDown("Fire2") && !actionMenuActive) // Open action menu
@@ -54,7 +60,7 @@ public class ActionMenu : MonoBehaviour
         }
 	}
 
-    void OnGUI ()
+    void OnGUI () // GUI
     {
         if (actionMenuActive)
         {
@@ -63,12 +69,7 @@ public class ActionMenu : MonoBehaviour
         }
     }
 
-    private Vector2 MouseScreenPosToGUIPos () // Convert mouse position to GUI position
-    {
-        return new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y);
-    }
-
-    private void ActionMenu_Map ()
+    private void ActionMenu_Map() // GUI action menu for the map
     {
         string[] names = Enum.GetNames(typeof(MapActions));
 
@@ -85,27 +86,56 @@ public class ActionMenu : MonoBehaviour
                 {
                     case 0:
                         {
-                            Vector2 pos = new Vector2(Mathf.RoundToInt(actionMenuWorldPos.x), Mathf.RoundToInt(actionMenuWorldPos.z));
+                            Vector2 pos = ConvertToWalkPos(new Vector2(actionMenuWorldPos.x, actionMenuWorldPos.z));
+                            
+                            game.position = new Vector3(pos.x, 1, pos.y);
                             sender.SendWantedPosition(pos);
+
                             CloseActionMenu();
+
                             break;
                         }
                     case 1:
                         {
-                            Debug.Log("A location you can walk towards.");
+                            Debug.Log("The terrain.");
                             CloseActionMenu();
                             break;
-                        }                
+                        }
                 }
             }
         }
+
+        if (Input.GetButtonUp("Fire2"))
+            CloseActionMenu();
     }
 
-    private void CloseActionMenu ()
+    private Vector2 MouseScreenPosToGUIPos () // Convert mouse position to GUI position
+    {
+        return new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y);
+    }
+
+    private Vector2 ConvertToWalkPos (Vector2 value)
+    {
+        Vector2 pos = new Vector2();
+
+        if (Mathf.RoundToInt(value.x) > value.x)
+            pos.x = Mathf.RoundToInt(value.x) - .5f;
+        else
+            pos.x = Mathf.RoundToInt(value.x) + .5f;
+
+        if (Mathf.RoundToInt(value.y) > value.y)
+            pos.y = Mathf.RoundToInt(value.y) - .5f;
+        else
+            pos.y = Mathf.RoundToInt(value.y) + .5f;
+
+        return pos;
+    }
+
+    private void CloseActionMenu () // Close the action menu
     {
         actionMenuActive = false;
         actionMenuWorldPos = Vector3.zero;
         actionMenuScreenPos = Vector2.zero;
         currentAction = Actions.Null;
-    }
+    } 
 }
