@@ -54,7 +54,7 @@ public class ClientSocket : MonoBehaviour
                 // Start a thread for receiveing player data
                 receiveThread = new Thread(ReceiveData);
                 receiveThread.Start();
-
+                
                 // Send a packet containg the player his name
                 List<byte> packet = new List<byte>();
                 packet.AddRange(BitConverter.GetBytes((ushort)game.playerName.Length));

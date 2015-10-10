@@ -19,8 +19,8 @@ public class Game : MonoBehaviour
 	
 	void Start () 
     {
-	    
-	}
+        playerName = UnityEngine.Random.Range(0, 5000).ToString();
+    }
 	
 	void Update () 
     {

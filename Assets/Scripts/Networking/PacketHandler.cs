@@ -43,7 +43,7 @@ public class PacketHandler : MonoBehaviour
 
         // Debug message
         print("Message from server: " + message);
-	} 
+	}
 
     void ReceivePlayerPosition (byte[] packet)
     {
@@ -58,6 +58,6 @@ public class PacketHandler : MonoBehaviour
         {
             player.playerPosition = new Vector3(playerPosX, 1, playerPosZ);
         }
-        else Debug.Log("Player not found");
+        else game.playerPosition = new Vector3(playerPosX, 1, playerPosZ);
     }
 }

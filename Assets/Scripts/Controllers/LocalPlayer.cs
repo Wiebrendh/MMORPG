@@ -19,9 +19,6 @@ public class LocalPlayer : MonoBehaviour
         agent.updateRotation = false;
         agent.destination = game.playerPosition;
 
-        if (currentPos != ActionMenu.ConvertToWalkPos(new Vector2(this.transform.position.x, this.transform.position.z)))
-            game.sender.SendPosition(ActionMenu.ConvertToWalkPos(new Vector2(this.transform.position.x, this.transform.position.z)));
-
         currentPos = ActionMenu.ConvertToWalkPos(new Vector2(this.transform.position.x, this.transform.position.z));
 
 	}
