@@ -4,12 +4,25 @@ using System.Collections;
 public class LocalPlayer : MonoBehaviour
 {
 
-    public Game game;
+    private Game game;
     public NavMeshAgent agent;
+
+    public Vector2 currentPos;
 	
+    void Start ()
+    {
+        game = GameObject.Find("Networking").GetComponent<Game>();
+    }
+
 	void Update ()
     {
         agent.updateRotation = false;
-        agent.destination = game.position;
+        agent.destination = game.playerPosition;
+
+        if (currentPos != ActionMenu.ConvertToWalkPos(new Vector2(this.transform.position.x, this.transform.position.z)))
+            game.sender.SendPosition(ActionMenu.ConvertToWalkPos(new Vector2(this.transform.position.x, this.transform.position.z)));
+
+        currentPos = ActionMenu.ConvertToWalkPos(new Vector2(this.transform.position.x, this.transform.position.z));
+
 	}
 }

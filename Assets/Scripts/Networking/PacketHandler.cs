@@ -16,34 +16,48 @@ public class PacketHandler : MonoBehaviour
 		switch (packetType) // Call the right function
 		{
 		    case 0:
-			    ConnectedToServer(packet, _socket);
+			    ConnectedToServer(packet);
 			    break;
             case 1:
                 Debug.Log("1");
                 break;
+            case 2:
+                ReceivePlayerPosition(packet);
+                break;
 		}
 	}
 	
-	void ConnectedToServer(byte[] packet, Socket _socket) // When the player connected to the server
+	void ConnectedToServer(byte[] packet) // When the player connected to the server
 	{
         // Convert data
-        game.playerID = (int)BitConverter.ToUInt16(packet, 2); // Player ID
+        game.playerID = BitConverter.ToUInt16(packet, 2); // Player ID
         int messageLength = BitConverter.ToUInt16(packet, 4); // Message length
 		string message = Encoding.ASCII.GetString(packet, 6, messageLength); //  Message
-        bool newPlayer = BitConverter.ToBoolean(packet, 6 + messageLength); // Bool newPlayer
 
-        // Get player position from server
-        Vector3 spawnPos = Vector3.zero; 
-        if (!newPlayer)
-        {
-            // Convert data
-            float posX = (float)BitConverter.ToDouble(packet, 7 + messageLength); // Get xPos
-            float posY = (float)BitConverter.ToDouble(packet, 15 + messageLength); // Get yPos
-            float posZ = (float)BitConverter.ToDouble(packet, 23 + messageLength); // Get zPos
-            spawnPos = new Vector3(posX, posY, posZ); // Convert to vector3
-        }
+        // Receive player position
+        game.playerPosition.x = (float)BitConverter.ToDouble(packet, 6 + messageLength);
+        game.playerPosition.z = (float)BitConverter.ToDouble(packet, 14 + messageLength);
+
+        // Spawn player if everything is done
+        game.canSpawnPlayer = true;
 
         // Debug message
         print("Message from server: " + message);
-	}
+	} 
+
+    void ReceivePlayerPosition (byte[] packet)
+    {
+        // Convert data
+        int playerID = BitConverter.ToUInt16(packet, 2); // Player id
+        float playerPosX = (float)BitConverter.ToDouble(packet, 4);
+        float playerPosZ = (float)BitConverter.ToDouble(packet, 12); // Player z pos 
+
+        // Insert to correct NetworkPlayer
+        NetworkPlayer player = game.GetNetworkPlayerFromID(playerID);
+        if (player != null)
+        {
+            player.playerPosition = new Vector3(playerPosX, 1, playerPosZ);
+        }
+        else Debug.Log("Player not found");
+    }
 }

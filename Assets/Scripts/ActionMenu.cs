@@ -10,8 +10,8 @@ public enum PlayerActions { WalkHere, RandomAction, Examine };
 public class ActionMenu : MonoBehaviour
 {
 
-    public Game game;
-    public PacketSender sender;
+    private Game game;
+    private PacketSender sender;
     public LocalPlayer localPlayer;
 
     [Space(10)]
@@ -23,6 +23,8 @@ public class ActionMenu : MonoBehaviour
 	
     void Start ()
     {
+        game = GameObject.Find("Networking").GetComponent<Game>();
+        sender = GameObject.Find("Networking").GetComponent<PacketSender>();
     }
 
 	void Update ()
@@ -58,6 +60,10 @@ public class ActionMenu : MonoBehaviour
                 }
             }
         }
+
+        // Close action menu when open and Fire2 is up
+        if (actionMenuActive && !Input.GetButton("Fire2"))
+            CloseActionMenu();
 	}
 
     void OnGUI () // GUI
@@ -87,17 +93,15 @@ public class ActionMenu : MonoBehaviour
                     case 0:
                         {
                             Vector2 pos = ConvertToWalkPos(new Vector2(actionMenuWorldPos.x, actionMenuWorldPos.z));
-                            
-                            game.position = new Vector3(pos.x, 1, pos.y);
-                            sender.SendWantedPosition(pos);
+                            game.playerPosition = new Vector3(pos.x, 1, pos.y);
 
                             CloseActionMenu();
-
                             break;
                         }
                     case 1:
                         {
                             Debug.Log("The terrain.");
+
                             CloseActionMenu();
                             break;
                         }
@@ -109,12 +113,12 @@ public class ActionMenu : MonoBehaviour
             CloseActionMenu();
     }
 
-    private Vector2 MouseScreenPosToGUIPos () // Convert mouse position to GUI position
+    public static Vector2 MouseScreenPosToGUIPos () // Convert mouse position to GUI position
     {
         return new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y);
     }
 
-    private Vector2 ConvertToWalkPos (Vector2 value)
+    public static Vector2 ConvertToWalkPos (Vector2 value)
     {
         Vector2 pos = new Vector2();
 

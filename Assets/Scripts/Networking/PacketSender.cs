@@ -25,7 +25,7 @@ public class PacketSender : MonoBehaviour
         socket.socket.Close();
     }
 
-    public void SendWantedPosition (Vector2 pos) // Send packet with player transforms
+    public void SendPosition (Vector2 pos) // Send packet with player transforms
 	{
 		List<byte> packet = new List<byte>();
         

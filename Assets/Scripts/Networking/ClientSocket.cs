@@ -57,8 +57,8 @@ public class ClientSocket : MonoBehaviour
 
                 // Send a packet containg the player his name
                 List<byte> packet = new List<byte>();
-                packet.AddRange(BitConverter.GetBytes((ushort)/*game.playerName.Length*/5));
-                packet.AddRange(Encoding.ASCII.GetBytes(/*game.playerName*/"12346"));
+                packet.AddRange(BitConverter.GetBytes((ushort)game.playerName.Length));
+                packet.AddRange(Encoding.ASCII.GetBytes(game.playerName));
                 socket.Send(packet.ToArray(), SocketFlags.None);
             }
         }
