@@ -1,249 +1,28 @@
-Mono path[0] = 'U:/GitHub/MMORPG/Builds/Build_Data/Managed'
-Mono path[1] = 'U:/GitHub/MMORPG/Builds/Build_Data/Mono'
-Mono config path = 'U:/GitHub/MMORPG/Builds/Build_Data/Mono/etc'
-PlayerConnection initialized from U:/GitHub/MMORPG/Builds/Build_Data (debug = 0)
-PlayerConnection initialized network socket : 0.0.0.0 55351
-Multi-casting "[IP] 192.168.0.20 [Port] 55351 [Flags] 2 [Guid] 2487482028 [EditorId] 1599536050 [Version] 1048832 [Id] WindowsPlayer(WiebrenPC) [Debug] 0" to [225.0.0.222:54997]...
-PlayerConnection already initialized - listening to [192.168.0.20:55351]
+Mono path[0] = 'C:/Users/Wiebr/Desktop/GitHub/MMORPG/Builds/Build_Data/Managed'
+Mono path[1] = 'C:/Users/Wiebr/Desktop/GitHub/MMORPG/Builds/Build_Data/Mono'
+Mono config path = 'C:/Users/Wiebr/Desktop/GitHub/MMORPG/Builds/Build_Data/Mono/etc'
+PlayerConnection initialized from C:/Users/Wiebr/Desktop/GitHub/MMORPG/Builds/Build_Data (debug = 0)
+PlayerConnection initialized network socket : 0.0.0.0 55502
+Multi-casting "[IP] 192.168.0.181 [Port] 55502 [Flags] 2 [Guid] 1774126237 [EditorId] 1643270345 [Version] 1048832 [Id] WindowsPlayer(DESKTOP-RQPBLR6) [Debug] 0" to [225.0.0.222:54997]...
+PlayerConnection already initialized - listening to [192.168.0.181:55502]
 Initialize engine version: 5.2.0f3 (e7947df39b5c)
 GfxDevice: creating device client; threaded=1
 Direct3D:
-    Version:  Direct3D 11.0 [level 11.0]
-    Renderer: NVIDIA GeForce GTX 970 (ID=0x13c2)
-    Vendor:   NVIDIA
-    VRAM:     4008 MB
+    Version:  Direct3D 11.0 [level 10.1]
+    Renderer: ATI Mobility Radeon HD 4500 Series (ID=0x9553)
+    Vendor:   ATI
+    VRAM:     505 MB
 Begin MonoManager ReloadAssembly
-Platform assembly: U:\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.dll (this message is harmless)
-Loading U:\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.dll into Unity Child Domain
-Platform assembly: U:\GitHub\MMORPG\Builds\Build_Data\Managed\Assembly-CSharp.dll (this message is harmless)
-Loading U:\GitHub\MMORPG\Builds\Build_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-Platform assembly: U:\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.UI.dll (this message is harmless)
-Loading U:\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-Platform assembly: U:\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
-Loading U:\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-Platform assembly: U:\GitHub\MMORPG\Builds\Build_Data\Managed\System.Core.dll (this message is harmless)
-- Completed reload, in  0.037 seconds
-desktop: 1920x1080 60Hz; virtual: 5760x1080 at -1920,0
+Platform assembly: C:\Users\Wiebr\Desktop\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Wiebr\Desktop\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Wiebr\Desktop\GitHub\MMORPG\Builds\Build_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Wiebr\Desktop\GitHub\MMORPG\Builds\Build_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Wiebr\Desktop\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\Wiebr\Desktop\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\Wiebr\Desktop\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\Wiebr\Desktop\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\Wiebr\Desktop\GitHub\MMORPG\Builds\Build_Data\Managed\System.Core.dll (this message is harmless)
+- Completed reload, in  0.420 seconds
+desktop: 1600x900 60Hz; virtual: 1600x900 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
-<RI> Initialized touch support.
-Platform assembly: U:\GitHub\MMORPG\Builds\Build_Data\Managed\System.dll (this message is harmless)
-Connecting...
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-Setting up 2 worker threads for Enlighten.
-  Thread -> id: 9a50 -> priority: 1 
-  Thread -> id: 9a4c -> priority: 1 
-Message from server: Welcome to the server Wiebrendh2!
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-

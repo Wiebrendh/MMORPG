@@ -85,9 +85,9 @@ public class ClientSocket : MonoBehaviour
                         handler.Handle(buffer, socket);
                     }
                 }
-                catch
+                catch (Exception e)
                 {
-                    Debug.LogError("Disconnected from server");
+                    Debug.LogError("Disconnected from server :: " + e);
                     receiveThread.Abort();
                 }
             }

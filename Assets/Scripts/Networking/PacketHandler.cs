@@ -22,6 +22,8 @@ public class PacketHandler : MonoBehaviour
                 Debug.Log("1");
                 break;
             case 2:
+
+            case 3:
                 ReceivePlayerPosition(packet);
                 break;
 		}
@@ -45,11 +47,19 @@ public class PacketHandler : MonoBehaviour
         print("Message from server: " + message);
 	}
 
+    void ReceivePlayerConnected (byte[] packet)
+    {
+        // Convert data
+        int playerID = BitConverter.ToUInt16(packet, 2); // Player id
+        float playerPosX = (float)BitConverter.ToDouble(packet, 4); // Player x pos
+        float playerPosZ = (float)BitConverter.ToDouble(packet, 12); // Player z pos
+    }
+
     void ReceivePlayerPosition (byte[] packet)
     {
         // Convert data
         int playerID = BitConverter.ToUInt16(packet, 2); // Player id
-        float playerPosX = (float)BitConverter.ToDouble(packet, 4);
+        float playerPosX = (float)BitConverter.ToDouble(packet, 4); // Player x pos
         float playerPosZ = (float)BitConverter.ToDouble(packet, 12); // Player z pos 
 
         // Insert to correct NetworkPlayer
