@@ -7,6 +7,7 @@ public class Game : MonoBehaviour
     public PacketSender sender;
 
     public List<NetworkPlayer> networkPlayers = new List<NetworkPlayer>();
+    public List<TreeData> treeDatas = new List<TreeData>();
 
     // Player data
     public int playerID;
@@ -39,6 +40,16 @@ public class Game : MonoBehaviour
         {
             if (player.playerID == id)
                 return player;
+        }
+        return null;
+    }
+
+    public TreeData GetTreeFromID (int id)
+    {
+        foreach (TreeData tree in treeDatas)
+        {
+            if (tree.treeID == id)
+                return tree;
         }
         return null;
     }

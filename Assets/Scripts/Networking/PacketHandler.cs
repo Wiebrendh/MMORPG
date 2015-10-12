@@ -30,10 +30,13 @@ public class PacketHandler : MonoBehaviour
             case 3:
                 ReceivePlayerPosition(packet);
                 break;
+            case 4:
+                ReceiveTreeState(packet);
+                break;
 		}
 	}
 	
-	void ConnectedToServer (byte[] packet) // When the player connected to the server
+	void ConnectedToServer (byte[] packet)
 	{
         // Convert data
         game.playerID = BitConverter.ToUInt16(packet, 2); // Player ID
@@ -63,7 +66,8 @@ public class PacketHandler : MonoBehaviour
             startBit += 34;
 
             // Use data to spawn network client
-            game.CreateNetworkPlayer(networkPlayer, (int)playerID, wantedX, wantedZ, currX, currZ);
+            if (playerID != game.playerID)
+                game.CreateNetworkPlayer(networkPlayer, (int)playerID, wantedX, wantedZ, currX, currZ);
         }
 
         // Debug message
@@ -78,9 +82,11 @@ public class PacketHandler : MonoBehaviour
         float playerPosZ = (float)BitConverter.ToDouble(packet, 12); // Player z pos
 
         // Create new NetworkPlayer
-        game.CreateNetworkPlayer(networkPlayer, playerID, playerPosX, playerPosZ, playerPosX, playerPosZ);
-        Debug.Log("Player with ID: " + playerID + " connected.");
-        
+        if (playerID != game.playerID)
+        {
+            game.CreateNetworkPlayer(networkPlayer, playerID, playerPosX, playerPosZ, playerPosX, playerPosZ);
+            Debug.Log("Player with ID: " + playerID + " connected.");
+        }
     }
 
     void ReceivePlayerDisconnected (byte[] packet) 
@@ -109,5 +115,19 @@ public class PacketHandler : MonoBehaviour
 
         }
         else if (playerID == game.playerID) game.playerPosition = new Vector3(playerPosX, 1, playerPosZ);
+    }
+
+    void ReceiveTreeState (byte[] packet)
+    {
+        // Convert data
+        int treeID = BitConverter.ToUInt16(packet, 2); // Tree id
+        int treeState = BitConverter.ToInt16(packet, 4); // Get tree state
+
+        // Insert to the correct TreeData
+        TreeData tree = game.GetTreeFromID(treeID);
+        if (tree != null)
+        {
+            tree.SetState(treeState);
+        }
     }
 }
