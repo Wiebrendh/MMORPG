@@ -93,16 +93,12 @@ public class ActionMenu : MonoBehaviour
                     case 0:
                         {
                             Vector2 pos = ConvertToWalkPos(new Vector2(actionMenuWorldPos.x, actionMenuWorldPos.z));
-                            sender.SendPosition(new Vector2(pos.x, pos.y));
-
-                            CloseActionMenu();
+                            sender.SendWantedPosition(new Vector2(pos.x, pos.y));
                             break;
                         }
                     case 1:
                         {
                             Debug.Log("The terrain.");
-
-                            CloseActionMenu();
                             break;
                         }
                 }

@@ -9,27 +9,31 @@ public class PacketHandler : MonoBehaviour
     public Game game;
     public PacketSender sender;
 
+    public GameObject localPlayer;
+    public GameObject networkPlayer;
+
     public void Handle(byte[] packet, Socket _socket) // Get the packet, and transfer it to its private void
 	{
 		ushort packetType = BitConverter.ToUInt16(packet, 0);
 		
 		switch (packetType) // Call the right function
 		{
-		    case 0:
+		    case 0: // When you connected to the server
 			    ConnectedToServer(packet);
 			    break;
             case 1:
-                Debug.Log("1");
+                ReceivePlayerConnected(packet);
                 break;
             case 2:
-
+                ReceivePlayerDisconnected(packet);
+                break;
             case 3:
                 ReceivePlayerPosition(packet);
                 break;
 		}
 	}
 	
-	void ConnectedToServer(byte[] packet) // When the player connected to the server
+	void ConnectedToServer (byte[] packet) // When the player connected to the server
 	{
         // Convert data
         game.playerID = BitConverter.ToUInt16(packet, 2); // Player ID
@@ -41,10 +45,29 @@ public class PacketHandler : MonoBehaviour
         game.playerPosition.z = (float)BitConverter.ToDouble(packet, 14 + messageLength);
 
         // Spawn player if everything is done
-        game.canSpawnPlayer = true;
+        Instantiate(localPlayer, new Vector3(game.playerPosition.x, 1, game.playerPosition.z), Quaternion.identity).name = "LocalPlayer";
+
+        // Receive players on server, his current position and their wanted position
+        int amountOfPlayers = BitConverter.ToUInt16(packet, 22 + messageLength);
+        
+        // Get player data
+        int startBit = 24 + messageLength;
+        for (int i = 0; i < amountOfPlayers; i++)
+        {
+            float playerID = 0, currX = 0, currZ = 0, wantedX = 0, wantedZ = 0;
+            playerID = BitConverter.ToUInt16(packet, startBit);
+            currX = (float)BitConverter.ToDouble(packet, startBit + 2);
+            currZ = (float)BitConverter.ToDouble(packet, startBit + 10);
+            wantedX = (float)BitConverter.ToDouble(packet, startBit + 18);
+            wantedZ = (float)BitConverter.ToDouble(packet, startBit + 26);
+            startBit += 34;
+
+            // Use data to spawn network client
+            game.CreateNetworkPlayer(networkPlayer, (int)playerID, wantedX, wantedZ, currX, currZ);
+        }
 
         // Debug message
-        print("Message from server: " + message);
+        print("Message from server: " + message + ". " + amountOfPlayers + " player(s) are connected.");
 	}
 
     void ReceivePlayerConnected (byte[] packet)
@@ -53,6 +76,21 @@ public class PacketHandler : MonoBehaviour
         int playerID = BitConverter.ToUInt16(packet, 2); // Player id
         float playerPosX = (float)BitConverter.ToDouble(packet, 4); // Player x pos
         float playerPosZ = (float)BitConverter.ToDouble(packet, 12); // Player z pos
+
+        // Create new NetworkPlayer
+        game.CreateNetworkPlayer(networkPlayer, playerID, playerPosX, playerPosZ, playerPosX, playerPosZ);
+        Debug.Log("Player with ID: " + playerID + " connected.");
+        
+    }
+
+    void ReceivePlayerDisconnected (byte[] packet) 
+    {
+        // Convert data
+        int playerID = BitConverter.ToUInt16(packet, 2); // Player id
+
+        // Remove NetworkPlayer with ID
+        game.RemoveNetworkPlayer(playerID);
+        Debug.Log("Player with ID: " + playerID + " connected.");
     }
 
     void ReceivePlayerPosition (byte[] packet)
@@ -67,7 +105,9 @@ public class PacketHandler : MonoBehaviour
         if (player != null)
         {
             player.playerPosition = new Vector3(playerPosX, 1, playerPosZ);
+            Debug.Log("Player with ID: " + playerID + " walked towards: " + playerPosX + "|" + playerPosZ);
+
         }
-        else game.playerPosition = new Vector3(playerPosX, 1, playerPosZ);
+        else if (playerID == game.playerID) game.playerPosition = new Vector3(playerPosX, 1, playerPosZ);
     }
 }

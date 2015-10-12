@@ -22,6 +22,9 @@ public class ClientSocket : MonoBehaviour
     public PacketHandler handler;
     public PacketSender sender;
 
+    // Packet receiver
+    public List<byte[]> packetQeue = new List<byte[]>();
+
     void Start()
     {
         game = this.GetComponent<Game>();
@@ -29,6 +32,15 @@ public class ClientSocket : MonoBehaviour
         sender = this.GetComponent<PacketSender>();
 
         StartConnect();
+    }
+
+    void Update ()
+    {
+        if (packetQeue.Count > 0)
+        {
+            handler.Handle(packetQeue[0], socket);
+            packetQeue.RemoveAt(0);
+        }
     }
 
     public void StartConnect()
@@ -53,6 +65,7 @@ public class ClientSocket : MonoBehaviour
             {
                 // Start a thread for receiveing player data
                 receiveThread = new Thread(ReceiveData);
+                receiveThread.IsBackground = true;
                 receiveThread.Start();
                 
                 // Send a packet containg the player his name
@@ -69,39 +82,33 @@ public class ClientSocket : MonoBehaviour
         thread.Abort();
     }
 
+    bool shouldExecute = true;
     private void ReceiveData()
     {
-        try
+        while (shouldExecute)
         {
-            while (true)
+            try
             {
-                try
+                byte[] buffer = new byte[socket.SendBufferSize];
+                int bufferLength = socket.Receive(buffer);
+                if (bufferLength > 0)
                 {
-                    byte[] buffer = new byte[socket.SendBufferSize];
-                    int bufferLength = socket.Receive(buffer);
-
-                    if (bufferLength > 0)
-                    {
-                        handler.Handle(buffer, socket);
-                    }
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError("Disconnected from server :: " + e);
-                    receiveThread.Abort();
+                    //handler.Handle(buffer, socket);
+                    packetQeue.Add(buffer);
                 }
             }
+            catch (Exception e)
+            {
+                Debug.LogError("Disconnected from server :: " + e);
+                receiveThread.Abort();
+            }
         }
-        catch (ThreadAbortException e)
-        {
-            Debug.Log(e);
-        }
-        
     }
 
     void OnApplicationQuit()
     {
+        sender.Disconnect(game.playerID);
         receiveThread.Abort();
-        receiveThread = null;
+        shouldExecute = false;
     }
 }

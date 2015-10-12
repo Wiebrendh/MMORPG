@@ -6,31 +6,32 @@ public class Game : MonoBehaviour
 
     public PacketSender sender;
 
-    // Game data
-    public bool canSpawnPlayer;
-    public GameObject localPlayerPrefab;
-
     public List<NetworkPlayer> networkPlayers = new List<NetworkPlayer>();
 
     // Player data
     public int playerID;
     public string playerName;
     public Vector3 playerPosition;
-	
-	void Start () 
+
+    public void CreateNetworkPlayer (GameObject prefab, int id, float posX, float posZ, float posCurrX, float posCurrZ)
     {
-        playerName = UnityEngine.Random.Range(0, 5000).ToString();
+        GameObject obj = Instantiate(prefab, new Vector3(posCurrX, 1, posCurrZ), Quaternion.identity) as GameObject;
+        NetworkPlayer player = obj.GetComponent<NetworkPlayer>();
+        player.playerPosition = new Vector3(posX, 1, posZ);
+        player.playerID = id;
+        networkPlayers.Add(player);
     }
-	
-	void Update () 
+
+    public void RemoveNetworkPlayer (int id)
     {
-        // Can spawn player
-        if (canSpawnPlayer)
+        foreach (NetworkPlayer player in networkPlayers)
         {
-            Instantiate(localPlayerPrefab, new Vector3(playerPosition.x, 1, playerPosition.z), Quaternion.identity).name = "LocalPlayer";
-            canSpawnPlayer = false;
+            if (player.playerID == id)
+            {
+                player.disconnected = true;
+            }
         }
-	}
+    }
 
     public NetworkPlayer GetNetworkPlayerFromID (int id)
     {
