@@ -10,6 +10,7 @@ public class LocalPlayer : MonoBehaviour
 
     public Vector2 currentPos;
     private float posUpdateTime;
+    public bool canDoAction;
     	
     void Start ()
     {

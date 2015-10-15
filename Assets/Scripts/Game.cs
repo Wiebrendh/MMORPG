@@ -7,12 +7,17 @@ public class Game : MonoBehaviour
     public PacketSender sender;
 
     public List<NetworkPlayer> networkPlayers = new List<NetworkPlayer>();
-    public List<TreeData> treeDatas = new List<TreeData>();
+    public TreeData[] treeDatas;
 
     // Player data
     public int playerID;
     public string playerName;
     public Vector3 playerPosition;
+
+    void Start ()
+    {
+        treeDatas = GameObject.FindObjectsOfType<TreeData>();
+    }
 
     public void CreateNetworkPlayer (GameObject prefab, int id, float posX, float posZ, float posCurrX, float posCurrZ)
     {
