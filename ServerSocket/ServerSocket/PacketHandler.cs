@@ -10,11 +10,13 @@ namespace ServerSocket
     public static class PacketHandler
     {
 
-        public static void Handle (byte[] packet, Socket socket) // Decide with function to call
+        public static void Handle (byte[] packet) // Decide with function to call
         {
-            ushort packetType = BitConverter.ToUInt16(packet, 0); // Get packettype
-            
-            switch (packetType) // Switch to get correct function
+            // Get packettype
+            ushort packetType = BitConverter.ToUInt16(packet, 0);
+
+            // Switch to get correct function
+            switch (packetType)
             {
                 case 0:
                     PlayerDisconnect(packet);
@@ -26,6 +28,9 @@ namespace ServerSocket
                     ReceiveCurrentPosition(packet);
                     break;
                 case 3:
+                    ReceiveTextMessage(packet);
+                    break;
+                case 4:
                     ReceiveTreeState(packet);
                     break;
             }
@@ -38,13 +43,16 @@ namespace ServerSocket
             return Encoding.ASCII.GetString(packet, 2, nameLength);
         }
 
-        public static void PlayerDisconnect (byte[] packet)
+        public static void PlayerDisconnect (byte[] packet) // Receive player disconnect
         {
-            int id = BitConverter.ToInt16(packet, 2); // Player ID
+            // Convert data, store in variable
+            int id = BitConverter.ToInt16(packet, 2);
+
+            // Send data to other players
             PacketSender.PlayerDisconnected(id);
         }
 
-        public static void ReceiveWantedPosition (byte[] packet)
+        public static void ReceiveWantedPosition (byte[] packet) // Receive wanted position of player
         {
             int playerID = BitConverter.ToInt16(packet, 2);
             
@@ -57,11 +65,12 @@ namespace ServerSocket
             }
             catch
             {
+                // Log error if there is one
                 Console.WriteLine("Failed receiving wanted position.");
             }
         }
 
-        public static void ReceiveCurrentPosition (byte[] packet)
+        public static void ReceiveCurrentPosition (byte[] packet) // Receive current position of player
         {
             int playerID = BitConverter.ToInt16(packet, 2);
 
@@ -73,11 +82,23 @@ namespace ServerSocket
             }
             catch
             {
+                // Debug error if there is one
                 Console.WriteLine("Failed receiving current position.");
             }
         }
 
-        public static void ReceiveTreeState (byte[] packet)
+        public static void ReceiveTextMessage(byte[] packet) // Receive text message send by player
+        {
+            // Convert data store in variables
+            int playerNameLength = BitConverter.ToInt16(packet, 2);
+            int playerMessageLength = BitConverter.ToInt16(packet, 4);
+            string playerName = Encoding.ASCII.GetString(packet, 6, playerNameLength);
+            string playerMessage = Encoding.ASCII.GetString(packet, 6 + playerNameLength, playerMessageLength);
+
+            Console.WriteLine(playerMessage);
+        }
+
+        public static void ReceiveTreeState (byte[] packet) // Receive edited state of tree
         {
             // Convert data
             int playerID = BitConverter.ToUInt16(packet, 2);
@@ -86,19 +107,19 @@ namespace ServerSocket
 
             // Find and set tree data
             TreeData tree = Server.GetTreeByID(treeID);
-            if (treeState == 0)
+            if (treeState == 0) // Set tree state to normal
             {
                 tree.isChopped = false;
                 tree.isBeingChopped = false;
                 tree.chopperID = -1;
             }
-            if (treeState == 1)
+            if (treeState == 1) // Set tree state to being chopped
             {
                 tree.isChopped = false;
                 tree.isBeingChopped = true;
                 tree.chopperID = playerID;
             }
-            if (treeState == 2)
+            if (treeState == 2) // Set tree state to chopped
             {
                 tree.isChopped = true;
                 tree.isBeingChopped = false;
@@ -107,7 +128,6 @@ namespace ServerSocket
 
             // Send packet to clients that tree is being chopped
             PacketSender.SendTreeState(treeID, treeState, playerID);
-            Console.WriteLine("Player {0} set state of tree {1} to {2}", playerID, treeID, treeState);
         }
     }
 }

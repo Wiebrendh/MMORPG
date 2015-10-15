@@ -42,6 +42,7 @@ public class PacketSender : MonoBehaviour
     {
         List<byte> packet = new List<byte>();
 
+        // Add data
         packet.AddRange(BitConverter.GetBytes((ushort)2)); // Packet type
         packet.AddRange(BitConverter.GetBytes((ushort)game.playerID)); // Player id
         packet.AddRange(BitConverter.GetBytes((double)pos.x)); // Player pos x
@@ -51,11 +52,26 @@ public class PacketSender : MonoBehaviour
         socket.socket.Send(packet.ToArray(), SocketFlags.None);
     }
 
+    public void SendTextMessage (string message)
+    {
+        List<byte> packet = new List<byte>();
+
+        // Add data
+        packet.AddRange(BitConverter.GetBytes((ushort)3)); // Packet type
+        packet.AddRange(BitConverter.GetBytes((ushort)game.playerName.Length)); // Player name length
+        packet.AddRange(BitConverter.GetBytes((ushort)message.Length)); // Player message length
+        packet.AddRange(Encoding.ASCII.GetBytes(game.playerName)); // Player name
+        packet.AddRange(Encoding.ASCII.GetBytes(message)); // Player message
+        
+        // Send packet
+        socket.socket.Send(packet.ToArray(), SocketFlags.None);
+    }
+
     public void SendTreeState (int treeID, int state)
     {
         List<byte> packet = new List<byte>();
 
-        packet.AddRange(BitConverter.GetBytes((ushort)3)); // Packet type
+        packet.AddRange(BitConverter.GetBytes((ushort)4)); // Packet type
         packet.AddRange(BitConverter.GetBytes((ushort)game.playerID)); // Player id
         packet.AddRange(BitConverter.GetBytes((ushort)treeID)); // Tree id
         packet.AddRange(BitConverter.GetBytes((ushort)state)); // Tree id

@@ -31,23 +31,25 @@ namespace ServerSocket
 
             while (true)
             {
+                // Read command in console
                 string command = Console.ReadLine().ToLower();
 
+                // Use command to do stuff
                 switch (command)
                 {
-                    case "help":
+                    case "help": // Debug available commands
                         {
                             Console.WriteLine(" > Available commands:");
                             Console.WriteLine("\tclear, players, save.");
                         }
                         break;
-                    case "clear":
+                    case "clear": // Clear the console
                         {
                             Console.Clear();
                             Console.WriteLine("Console cleared.");
                             break;
                         }
-                    case "players":
+                    case "players": // Debug all the player
                         {
                             int playerCount = 0;
                             string output = string.Empty;
@@ -65,12 +67,7 @@ namespace ServerSocket
                                 Console.WriteLine(" > There are no players connected.");
                         }
                         break;
-                    case "test": // JUST A TEST CASE
-                        {
-                            Console.WriteLine("Nothing here");
-                        }
-                        break;
-                    default:
+                    default: // Default case, when command is not recognized
                         {
                             Console.WriteLine(" > This command is unknown, type 'help' to see available commands.");
                         }
@@ -81,9 +78,11 @@ namespace ServerSocket
 
         static void Start ()
         {
+            // Create socket
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             clients = new List<ClientData>();
 
+            // Assign data to socket
             IPEndPoint ip = new IPEndPoint(IPAddress.Any, 25565);
             socket.Bind(ip);
             socket.Listen(500);
@@ -132,16 +131,10 @@ namespace ServerSocket
             Accept();
         }
 
-        public static void ReceiveData(object id)
+        public static void ReceiveData(object data)
         {
-            ClientData client = null;
-            if (clients.Count > (int)id)
-                client = clients[(int)id];
-            else
-            {
-                ReceiveData(id);
-                return;
-            }
+            // Get client
+            ClientData client = (ClientData)data;
 
             while (true)
             {
@@ -153,15 +146,10 @@ namespace ServerSocket
 
                     if (bufferLength > 0)
                     {
-                        PacketHandler.Handle(buffer, client.clientSocket);
+                        PacketHandler.Handle(buffer);
                     }
                 }
-                catch
-                {
-                    // Player disconnected
-                    if (clients[(int)id].online)
-                        clients[(int)id].Disconnect();
-                }
+                catch { }
             }
         }
 
@@ -224,7 +212,7 @@ namespace ServerSocket
             
             // Start a thread for this client
             clientThread = new Thread(Server.ReceiveData);
-            clientThread.Start(id);
+            clientThread.Start(this);
 
             // Send packet to show the user that he connected
             PacketSender.PlayerConnected("Welcome to the server " + name + "!", this, clientSocket);
@@ -238,7 +226,7 @@ namespace ServerSocket
 
             // Start a thread for this client
             clientThread = new Thread(Server.ReceiveData);
-            clientThread.Start(id);
+            clientThread.Start(this);
 
             // Send packet to show the user that he connected
             PacketSender.PlayerConnected("Welcome back " + name + "!", this, clientSocket);
