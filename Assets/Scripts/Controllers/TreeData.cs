@@ -21,7 +21,7 @@ public class TreeData : MonoBehaviour
 
     void Start ()
     {
-        this.transform.FindChild("Graphical").eulerAngles = new Vector3(0, Random.Range(0, 360), 0);
+        this.transform.FindChild("Graphical_TreeUp").eulerAngles = new Vector3(0, Random.Range(0, 360), 0);
     }
 
     void Update ()

@@ -146,13 +146,13 @@ public class ActionMenu : MonoBehaviour
                             if (!tree.beingChopped && !tree.treeDown)
                             {
                                 // Check if player is standing next to tree
-                                if (Math.Round(Vector3.Distance(actionMenuObject.transform.position, localPlayer.transform.position), 1) <= 1)
+                                if (Math.Round(Vector3.Distance(actionMenuObject.transform.position, localPlayer.transform.position), 1) <= 1.8f)
                                 {
                                     sender.SendTreeState(tree.treeID, 1);
                                     localPlayer.canDoAction = false;
                                 }
                                 else
-                                    Debug.Log("You have to stand next to tree to chop it down.");
+                                    Debug.Log("You have to stand next to tree to chop it down. " + Vector3.Distance(actionMenuObject.transform.position, localPlayer.transform.position));
                             }
                             else Debug.Log("You cannot chop this tree (Already chopped, or someone else is chopping).");
                         }
