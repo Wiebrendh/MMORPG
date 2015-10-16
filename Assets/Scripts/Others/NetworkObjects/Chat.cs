@@ -17,10 +17,8 @@ public class Chat : MonoBehaviour
         {
             currentSendTime = Time.time + maxSendRate;
             sender.SendTextMessage(textField.text);
-        }
-        else if (Time.time < currentSendTime)
-            AddMessage(textField.text);
-            
+            textField.text = string.Empty;
+        }            
 	}
 
     public void AddMessage (string message)

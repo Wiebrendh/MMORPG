@@ -44,7 +44,7 @@ public class TreeData : MonoBehaviour
 
                     if (choppingTimeLeft == 0) // If player is done chopping tree
                     {
-                        reupTime = 20;
+                        reupTime = 10;
                         sender.SendTreeState(treeID, 2);
                         player.canDoAction = true;
                     }
@@ -79,7 +79,7 @@ public class TreeData : MonoBehaviour
             
             if (choppedByID == game.playerID)
             {
-                choppingTimeLeft = 20;
+                choppingTimeLeft = 5;
             }
         }
         if (state == 2) 
