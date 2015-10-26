@@ -79,4 +79,15 @@ public class PacketSender : MonoBehaviour
         // Send packet
         socket.socket.Send(packet.ToArray(), SocketFlags.None);
     }
+
+    public void SendLevelsRequest ()
+    {
+        List<byte> packet = new List<byte>();
+
+        packet.AddRange(BitConverter.GetBytes((ushort)5)); // Packet type
+        packet.AddRange(BitConverter.GetBytes((ushort)game.playerID)); // Player id
+
+        // Send packet
+        socket.socket.Send(packet.ToArray(), SocketFlags.None);
+    }
 }

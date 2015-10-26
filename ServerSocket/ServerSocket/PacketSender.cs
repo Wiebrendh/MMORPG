@@ -29,7 +29,7 @@ namespace ServerSocket
             List<byte> playerPacket = new List<byte>();
             foreach (ClientData player in Server.clients)
             {
-                if (player.online)
+                if (player.online && player != data)
                 {
                     amountOfPlayers++;
                     playerPacket.AddRange(BitConverter.GetBytes((ushort)player.id));
@@ -136,11 +136,31 @@ namespace ServerSocket
             }
         }
 
-        public static void SendTreeState (int treeID, int state, int choppedByID)
+        public static void SendTextMessage(string sender, string message)
         {
             List<byte> packet = new List<byte>();
 
             packet.AddRange(BitConverter.GetBytes((ushort)4)); // Packet type
+            packet.AddRange(BitConverter.GetBytes((ushort)sender.Length)); // Player name length
+            packet.AddRange(BitConverter.GetBytes((ushort)message.Length)); // Player message length
+            packet.AddRange(Encoding.ASCII.GetBytes(sender)); // Player name
+            packet.AddRange(Encoding.ASCII.GetBytes(message)); // Player message
+
+            // Send data to every client, if connected
+            foreach (ClientData client in Server.clients)
+            {
+                if (client.online && client.clientSocket.Connected)
+                {
+                    client.clientSocket.Send(packet.ToArray(), 0, packet.Count, SocketFlags.None);
+                }
+            }
+        }
+
+        public static void SendTreeState (int treeID, int state, int choppedByID)
+        {
+            List<byte> packet = new List<byte>();
+
+            packet.AddRange(BitConverter.GetBytes((ushort)5)); // Packet type
             packet.AddRange(BitConverter.GetBytes((ushort)treeID)); // Tree id
             packet.AddRange(BitConverter.GetBytes((int)state)); // Tree state
             packet.AddRange(BitConverter.GetBytes((int)choppedByID)); // Chopped by id
@@ -152,6 +172,15 @@ namespace ServerSocket
                 {
                     client.clientSocket.Send(packet.ToArray(), 0, packet.Count, SocketFlags.None);
                 }
+            }
+        }
+
+        public static void SendLevelUpdate(ClientData client, byte[] packet)
+        {
+            // Send packet to client, if connected
+            if (client.online && client.clientSocket.Connected)
+            {
+                client.clientSocket.Send(packet, 0, packet.Length, SocketFlags.None);
             }
         }
     }

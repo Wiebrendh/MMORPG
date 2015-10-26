@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System;
 using System.Net;
 using System.Net.Sockets;
@@ -11,6 +12,7 @@ public class ClientSocket : MonoBehaviour
 
     public Socket socket;
     public string ipString;
+    public Text nameInputField;
 
     // Threads
     public Thread receiveThread;
@@ -30,8 +32,6 @@ public class ClientSocket : MonoBehaviour
         game = this.GetComponent<Game>();
         handler = this.GetComponent<PacketHandler>();
         sender = this.GetComponent<PacketSender>();
-
-        StartConnect();
     }
 
     void Update ()
@@ -45,13 +45,18 @@ public class ClientSocket : MonoBehaviour
 
     public void StartConnect()
     {
-        Thread connectionThread = new Thread(ConnectServer);
-        connectionThread.Start(connectionThread);
+        if (nameInputField.text.Length >= 5)
+        {
+            game.playerName = nameInputField.text;
+            Thread connectionThread = new Thread(ConnectServer);
+            connectionThread.Start(connectionThread);
+        }
+        else
+            Debug.Log("Name field is empty or name is to short.");
     }
 
     private void ConnectServer(object _thread)
     {
-        Debug.Log("Connecting...");
         Thread thread = (Thread)_thread;
 
         try
@@ -97,11 +102,7 @@ public class ClientSocket : MonoBehaviour
                     packetQeue.Add(buffer);
                 }
             }
-            catch (Exception e)
-            {
-                Debug.LogError("Disconnected from server :: " + e);
-                receiveThread.Abort();
-            }
+            catch { receiveThread.Abort(); }
         }
     }
 

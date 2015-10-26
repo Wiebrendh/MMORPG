@@ -11,14 +11,11 @@ public class CameraControl : MonoBehaviour
     {
         this.transform.LookAt(character.transform.position);
 
-        /* Vertical
-        if (this.transform.eulerAngles.x > 20 && this.transform.eulerAngles.x < 80)
-            this.transform.RotateAround(character.transform.position, new Vector3(Input.GetAxis("Vertical"), 0, 0), Mathf.Abs(Input.GetAxis("Vertical") * Time.deltaTime * speed));
-
-        float fixedX = Mathf.Clamp(this.transform.eulerAngles.x, 20, 80);
-        this.transform.eulerAngles = new Vector3(fixedX, this.transform.eulerAngles.y, 0);*/
-
-        // Vertical
+        // Horizontal (Keyboard left and right)
         this.transform.RotateAround(character.transform.position, new Vector3(0, Input.GetAxis("Horizontal"), 0), -Mathf.Abs(Input.GetAxis("Horizontal") * Time.deltaTime * speed));
-	}
+
+        // Horizontal (Mouse middle mouse and drag)
+        if (Input.GetButton("Fire3") && Input.GetAxis("Mouse X") != 0)
+            this.transform.RotateAround(character.transform.position, new Vector3(0, Input.GetAxis("Mouse X"), 0), -Mathf.Abs(Input.GetAxis("Mouse X") * Time.deltaTime * -speed));
+    }
 }

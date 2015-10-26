@@ -1,85 +1,252 @@
-Mono path[0] = 'C:/Users/Wiebr/Desktop/GitHub/MMORPG/Builds/Build_Data/Managed'
-Mono path[1] = 'C:/Users/Wiebr/Desktop/GitHub/MMORPG/Builds/Build_Data/Mono'
-Mono config path = 'C:/Users/Wiebr/Desktop/GitHub/MMORPG/Builds/Build_Data/Mono/etc'
-PlayerConnection initialized from C:/Users/Wiebr/Desktop/GitHub/MMORPG/Builds/Build_Data (debug = 0)
-PlayerConnection initialized network socket : 0.0.0.0 55398
-Multi-casting "[IP] 10.35.14.134 [Port] 55398 [Flags] 2 [Guid] 618112582 [EditorId] 994541727 [Version] 1048832 [Id] WindowsPlayer(DESKTOP-RQPBLR6) [Debug] 0" to [225.0.0.222:54997]...
-PlayerConnection already initialized - listening to [10.35.14.134:55398]
-Initialize engine version: 5.2.1f1 (44735ea161b3)
+Mono path[0] = 'U:/GitHub/MMORPG/Builds/Build_Data/Managed'
+Mono path[1] = 'U:/GitHub/MMORPG/Builds/Build_Data/Mono'
+Mono config path = 'U:/GitHub/MMORPG/Builds/Build_Data/Mono/etc'
+PlayerConnection initialized from U:/GitHub/MMORPG/Builds/Build_Data (debug = 0)
+PlayerConnection initialized network socket : 0.0.0.0 55351
+Multi-casting "[IP] 192.168.0.20 [Port] 55351 [Flags] 2 [Guid] 423160303 [EditorId] 3067835835 [Version] 1048832 [Id] WindowsPlayer(WiebrenPC) [Debug] 0" to [225.0.0.222:54997]...
+PlayerConnection already initialized - listening to [192.168.0.20:55351]
+Initialize engine version: 5.2.0f3 (e7947df39b5c)
 GfxDevice: creating device client; threaded=1
 Direct3D:
-    Version:  Direct3D 11.0 [level 10.1]
-    Renderer: ATI Mobility Radeon HD 4500 Series (ID=0x9553)
-    Vendor:   ATI
-    VRAM:     505 MB
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 970 (ID=0x13c2)
+    Vendor:   NVIDIA
+    VRAM:     4008 MB
 Begin MonoManager ReloadAssembly
-Platform assembly: C:\Users\Wiebr\Desktop\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.dll (this message is harmless)
-Loading C:\Users\Wiebr\Desktop\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.dll into Unity Child Domain
-Platform assembly: C:\Users\Wiebr\Desktop\GitHub\MMORPG\Builds\Build_Data\Managed\Assembly-CSharp.dll (this message is harmless)
-Loading C:\Users\Wiebr\Desktop\GitHub\MMORPG\Builds\Build_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-Platform assembly: C:\Users\Wiebr\Desktop\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.UI.dll (this message is harmless)
-Loading C:\Users\Wiebr\Desktop\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-Platform assembly: C:\Users\Wiebr\Desktop\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
-Loading C:\Users\Wiebr\Desktop\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-Platform assembly: C:\Users\Wiebr\Desktop\GitHub\MMORPG\Builds\Build_Data\Managed\System.Core.dll (this message is harmless)
-- Completed reload, in  0.216 seconds
-desktop: 1600x900 60Hz; virtual: 1600x900 at 0,0
+Platform assembly: U:\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading U:\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: U:\GitHub\MMORPG\Builds\Build_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading U:\GitHub\MMORPG\Builds\Build_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: U:\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading U:\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: U:\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading U:\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: U:\GitHub\MMORPG\Builds\Build_Data\Managed\System.Core.dll (this message is harmless)
+- Completed reload, in  0.115 seconds
+desktop: 1920x1080 60Hz; virtual: 5760x1123 at -1920,-43
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-Platform assembly: C:\Users\Wiebr\Desktop\GitHub\MMORPG\Builds\Build_Data\Managed\System.dll (this message is harmless)
-Connecting...
+Platform assembly: U:\GitHub\MMORPG\Builds\Build_Data\Managed\System.dll (this message is harmless)
+Setting up 2 worker threads for Enlighten.
+  Thread -> id: e29c -> priority: 1 
+  Thread -> id: ac58 -> priority: 1 
+Mono path[0] = 'U:/GitHub/MMORPG/Builds/Build_Data/Managed'
+Mono path[1] = 'U:/GitHub/MMORPG/Builds/Build_Data/Mono'
+Mono config path = 'U:/GitHub/MMORPG/Builds/Build_Data/Mono/etc'
+PlayerConnection initialized from U:/GitHub/MMORPG/Builds/Build_Data (debug = 0)
+PlayerConnection initialized network socket : 0.0.0.0 55140
+Multi-casting "[IP] 192.168.0.20 [Port] 55140 [Flags] 2 [Guid] 4138021309 [EditorId] 3067835835 [Version] 1048832 [Id] WindowsPlayer(WiebrenPC) [Debug] 0" to [225.0.0.222:54997]...
+PlayerConnection already initialized - listening to [192.168.0.20:55140]
+Initialize engine version: 5.2.0f3 (e7947df39b5c)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 970 (ID=0x13c2)
+    Vendor:   NVIDIA
+    VRAM:     4008 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: U:\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading U:\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: U:\GitHub\MMORPG\Builds\Build_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading U:\GitHub\MMORPG\Builds\Build_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: U:\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading U:\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: U:\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading U:\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: U:\GitHub\MMORPG\Builds\Build_Data\Managed\System.Core.dll (this message is harmless)
+- Completed reload, in  0.039 seconds
+desktop: 1920x1080 60Hz; virtual: 5760x1123 at -1920,-43
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+Platform assembly: U:\GitHub\MMORPG\Builds\Build_Data\Managed\System.dll (this message is harmless)
+Setting up 2 worker threads for Enlighten.
+  Thread -> id: d3a4 -> priority: 1 
+  Thread -> id: ee18 -> priority: 1 
+NullReferenceException: Object reference not set to an instance of an object
+  at PacketSender.Disconnect (Int32 id) [0x0001f] in U:\GitHub\MMORPG\Assets\Scripts\Networking\PacketSender.cs:21 
+  at ClientSocket.OnApplicationQuit () [0x00000] in U:\GitHub\MMORPG\Assets\Scripts\Networking\ClientSocket.cs:111 
  
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+(Filename: U:/GitHub/MMORPG/Assets/Scripts/Networking/PacketSender.cs Line: 21)
 
-Setting up 1 worker threads for Enlighten.
-Message from server: Welcome back wiebren!. 1 player(s) are connected.
+Mono path[0] = 'U:/GitHub/MMORPG/Builds/Build_Data/Managed'
+Mono path[1] = 'U:/GitHub/MMORPG/Builds/Build_Data/Mono'
+Mono config path = 'U:/GitHub/MMORPG/Builds/Build_Data/Mono/etc'
+PlayerConnection initialized from U:/GitHub/MMORPG/Builds/Build_Data (debug = 0)
+PlayerConnection initialized network socket : 0.0.0.0 55098
+Multi-casting "[IP] 192.168.0.20 [Port] 55098 [Flags] 2 [Guid] 4270302992 [EditorId] 3067835835 [Version] 1048832 [Id] WindowsPlayer(WiebrenPC) [Debug] 0" to [225.0.0.222:54997]...
+PlayerConnection already initialized - listening to [192.168.0.20:55098]
+Initialize engine version: 5.2.0f3 (e7947df39b5c)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 970 (ID=0x13c2)
+    Vendor:   NVIDIA
+    VRAM:     4008 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: U:\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading U:\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: U:\GitHub\MMORPG\Builds\Build_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading U:\GitHub\MMORPG\Builds\Build_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: U:\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading U:\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: U:\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading U:\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: U:\GitHub\MMORPG\Builds\Build_Data\Managed\System.Core.dll (this message is harmless)
+- Completed reload, in  0.034 seconds
+desktop: 1920x1080 60Hz; virtual: 5760x1123 at -1920,-43
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+NullReferenceException: Object reference not set to an instance of an object
+  at PacketSender.Disconnect (Int32 id) [0x0001f] in U:\GitHub\MMORPG\Assets\Scripts\Networking\PacketSender.cs:21 
+  at ClientSocket.OnApplicationQuit () [0x00000] in U:\GitHub\MMORPG\Assets\Scripts\Networking\ClientSocket.cs:111 
+ 
+(Filename: U:/GitHub/MMORPG/Assets/Scripts/Networking/PacketSender.cs Line: 21)
+
+Platform assembly: U:\GitHub\MMORPG\Builds\Build_Data\Managed\System.dll (this message is harmless)
+Setting up 2 worker threads for Enlighten.
+  Thread -> id: fb44 -> priority: 1 
+  Thread -> id: e1bc -> priority: 1 
+Mono path[0] = 'U:/GitHub/MMORPG/Builds/Build_Data/Managed'
+Mono path[1] = 'U:/GitHub/MMORPG/Builds/Build_Data/Mono'
+Mono config path = 'U:/GitHub/MMORPG/Builds/Build_Data/Mono/etc'
+PlayerConnection initialized from U:/GitHub/MMORPG/Builds/Build_Data (debug = 0)
+PlayerConnection initialized network socket : 0.0.0.0 55275
+Multi-casting "[IP] 192.168.0.20 [Port] 55275 [Flags] 2 [Guid] 2772474305 [EditorId] 3067835835 [Version] 1048832 [Id] WindowsPlayer(WiebrenPC) [Debug] 0" to [225.0.0.222:54997]...
+PlayerConnection already initialized - listening to [192.168.0.20:55275]
+Initialize engine version: 5.2.0f3 (e7947df39b5c)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 970 (ID=0x13c2)
+    Vendor:   NVIDIA
+    VRAM:     4008 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: U:\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading U:\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: U:\GitHub\MMORPG\Builds\Build_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading U:\GitHub\MMORPG\Builds\Build_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: U:\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading U:\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: U:\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading U:\GitHub\MMORPG\Builds\Build_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: U:\GitHub\MMORPG\Builds\Build_Data\Managed\System.Core.dll (this message is harmless)
+- Completed reload, in  0.037 seconds
+desktop: 1920x1080 60Hz; virtual: 5760x1123 at -1920,-43
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+Platform assembly: U:\GitHub\MMORPG\Builds\Build_Data\Managed\System.dll (this message is harmless)
+Setting up 2 worker threads for Enlighten.
+  Thread -> id: ef18 -> priority: 1 
+  Thread -> id: ef80 -> priority: 1 
+Player with ID: 1 connected.
 UnityEngine.Debug:Internal_Log(Int32, String, Object)
 UnityEngine.Debug:Log(Object)
-UnityEngine.MonoBehaviour:print(Object) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\UnityEngineMonoBehaviourBindings.gen.cs:108)
-PacketHandler:ConnectedToServer(Byte[]) (at C:\Users\Wiebr\Desktop\GitHub\MMORPG\Assets\Scripts\Networking\PacketHandler.cs:74)
-PacketHandler:Handle(Byte[], Socket) (at C:\Users\Wiebr\Desktop\GitHub\MMORPG\Assets\Scripts\Networking\PacketHandler.cs:22)
-ClientSocket:Update() (at C:\Users\Wiebr\Desktop\GitHub\MMORPG\Assets\Scripts\Networking\ClientSocket.cs:41)
+PacketHandler:ReceivePlayerConnected(Byte[]) (at U:\GitHub\MMORPG\Assets\Scripts\Networking\PacketHandler.cs:100)
+PacketHandler:Handle(Byte[], Socket) (at U:\GitHub\MMORPG\Assets\Scripts\Networking\PacketHandler.cs:27)
+ClientSocket:Update() (at U:\GitHub\MMORPG\Assets\Scripts\Networking\ClientSocket.cs:41)
  
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineMonoBehaviourBindings.gen.cs Line: 108)
+(Filename: U:/GitHub/MMORPG/Assets/Scripts/Networking/PacketHandler.cs Line: 100)
 
-  Thread -> id: 1b88 -> priority: 1 
-The terrain.
+Player with ID: 1 walked towards: 255.5|258.5
 UnityEngine.Debug:Internal_Log(Int32, String, Object)
 UnityEngine.Debug:Log(Object)
-ActionMenu:ActionMenu_Map() (at C:\Users\Wiebr\Desktop\GitHub\MMORPG\Assets\Scripts\ActionMenu.cs:115)
-ActionMenu:OnGUI() (at C:\Users\Wiebr\Desktop\GitHub\MMORPG\Assets\Scripts\ActionMenu.cs:83)
+PacketHandler:ReceivePlayerPosition(Byte[]) (at U:\GitHub\MMORPG\Assets\Scripts\Networking\PacketHandler.cs:126)
+PacketHandler:Handle(Byte[], Socket) (at U:\GitHub\MMORPG\Assets\Scripts\Networking\PacketHandler.cs:33)
+ClientSocket:Update() (at U:\GitHub\MMORPG\Assets\Scripts\Networking\ClientSocket.cs:41)
  
-(Filename: C:/Users/Wiebr/Desktop/GitHub/MMORPG/Assets/Scripts/ActionMenu.cs Line: 115)
+(Filename: U:/GitHub/MMORPG/Assets/Scripts/Networking/PacketHandler.cs Line: 126)
 
-You have to stand next to tree to chop it down. 4.724928
+Player with ID: 0 walked towards: 256.5|261.5
 UnityEngine.Debug:Internal_Log(Int32, String, Object)
 UnityEngine.Debug:Log(Object)
-ActionMenu:ActionMenu_Tree() (at C:\Users\Wiebr\Desktop\GitHub\MMORPG\Assets\Scripts\ActionMenu.cs:155)
-ActionMenu:OnGUI() (at C:\Users\Wiebr\Desktop\GitHub\MMORPG\Assets\Scripts\ActionMenu.cs:87)
+PacketHandler:ReceivePlayerPosition(Byte[]) (at U:\GitHub\MMORPG\Assets\Scripts\Networking\PacketHandler.cs:126)
+PacketHandler:Handle(Byte[], Socket) (at U:\GitHub\MMORPG\Assets\Scripts\Networking\PacketHandler.cs:33)
+ClientSocket:Update() (at U:\GitHub\MMORPG\Assets\Scripts\Networking\ClientSocket.cs:41)
  
-(Filename: C:/Users/Wiebr/Desktop/GitHub/MMORPG/Assets/Scripts/ActionMenu.cs Line: 155)
+(Filename: U:/GitHub/MMORPG/Assets/Scripts/Networking/PacketHandler.cs Line: 126)
 
-A tree you can chop down.
+Player with ID: 1 walked towards: 250.5|263.5
 UnityEngine.Debug:Internal_Log(Int32, String, Object)
 UnityEngine.Debug:Log(Object)
-ActionMenu:ActionMenu_Tree() (at C:\Users\Wiebr\Desktop\GitHub\MMORPG\Assets\Scripts\ActionMenu.cs:162)
-ActionMenu:OnGUI() (at C:\Users\Wiebr\Desktop\GitHub\MMORPG\Assets\Scripts\ActionMenu.cs:87)
+PacketHandler:ReceivePlayerPosition(Byte[]) (at U:\GitHub\MMORPG\Assets\Scripts\Networking\PacketHandler.cs:126)
+PacketHandler:Handle(Byte[], Socket) (at U:\GitHub\MMORPG\Assets\Scripts\Networking\PacketHandler.cs:33)
+ClientSocket:Update() (at U:\GitHub\MMORPG\Assets\Scripts\Networking\ClientSocket.cs:41)
  
-(Filename: C:/Users/Wiebr/Desktop/GitHub/MMORPG/Assets/Scripts/ActionMenu.cs Line: 162)
+(Filename: U:/GitHub/MMORPG/Assets/Scripts/Networking/PacketHandler.cs Line: 126)
 
-Disconnected from server :: System.Net.Sockets.SocketException: De externe host heeft een verbinding verbroken.
-
-  at System.Net.Sockets.Socket.Receive (System.Byte[] buffer) [0x00056] in /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System/System.Net.Sockets/Socket.cs:2374 
-  at ClientSocket.ReceiveData () [0x00016] in C:\Users\Wiebr\Desktop\GitHub\MMORPG\Assets\Scripts\Networking\ClientSocket.cs:93 
+Player with ID: 0 walked towards: 257.5|259.5
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+PacketHandler:ReceivePlayerPosition(Byte[]) (at U:\GitHub\MMORPG\Assets\Scripts\Networking\PacketHandler.cs:126)
+PacketHandler:Handle(Byte[], Socket) (at U:\GitHub\MMORPG\Assets\Scripts\Networking\PacketHandler.cs:33)
+ClientSocket:Update() (at U:\GitHub\MMORPG\Assets\Scripts\Networking\ClientSocket.cs:41)
  
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+(Filename: U:/GitHub/MMORPG/Assets/Scripts/Networking/PacketHandler.cs Line: 126)
 
-SocketException: De externe host heeft een verbinding verbroken.
-
-  at System.Net.Sockets.Socket.Send (System.Byte[] buf, SocketFlags flags) [0x00056] in /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System/System.Net.Sockets/Socket.cs:2793 
-  at PacketSender.Disconnect (Int32 id) [0x0001f] in C:\Users\Wiebr\Desktop\GitHub\MMORPG\Assets\Scripts\Networking\PacketSender.cs:21 
-  at ClientSocket.OnApplicationQuit () [0x00000] in C:\Users\Wiebr\Desktop\GitHub\MMORPG\Assets\Scripts\Networking\ClientSocket.cs:110 
+Player with ID: 0 walked towards: 256.5|259.5
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+PacketHandler:ReceivePlayerPosition(Byte[]) (at U:\GitHub\MMORPG\Assets\Scripts\Networking\PacketHandler.cs:126)
+PacketHandler:Handle(Byte[], Socket) (at U:\GitHub\MMORPG\Assets\Scripts\Networking\PacketHandler.cs:33)
+ClientSocket:Update() (at U:\GitHub\MMORPG\Assets\Scripts\Networking\ClientSocket.cs:41)
  
-(Filename: /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System/System.Net.Sockets/Socket.cs Line: 2793)
+(Filename: U:/GitHub/MMORPG/Assets/Scripts/Networking/PacketHandler.cs Line: 126)
+
+Player with ID: 0 walked towards: 256.5|261.5
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+PacketHandler:ReceivePlayerPosition(Byte[]) (at U:\GitHub\MMORPG\Assets\Scripts\Networking\PacketHandler.cs:126)
+PacketHandler:Handle(Byte[], Socket) (at U:\GitHub\MMORPG\Assets\Scripts\Networking\PacketHandler.cs:33)
+ClientSocket:Update() (at U:\GitHub\MMORPG\Assets\Scripts\Networking\ClientSocket.cs:41)
+ 
+(Filename: U:/GitHub/MMORPG/Assets/Scripts/Networking/PacketHandler.cs Line: 126)
+
+Player with ID: 0 walked towards: 255.5|263.5
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+PacketHandler:ReceivePlayerPosition(Byte[]) (at U:\GitHub\MMORPG\Assets\Scripts\Networking\PacketHandler.cs:126)
+PacketHandler:Handle(Byte[], Socket) (at U:\GitHub\MMORPG\Assets\Scripts\Networking\PacketHandler.cs:33)
+ClientSocket:Update() (at U:\GitHub\MMORPG\Assets\Scripts\Networking\ClientSocket.cs:41)
+ 
+(Filename: U:/GitHub/MMORPG/Assets/Scripts/Networking/PacketHandler.cs Line: 126)
+
+Player with ID: 0 walked towards: 257.5|262.5
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+PacketHandler:ReceivePlayerPosition(Byte[]) (at U:\GitHub\MMORPG\Assets\Scripts\Networking\PacketHandler.cs:126)
+PacketHandler:Handle(Byte[], Socket) (at U:\GitHub\MMORPG\Assets\Scripts\Networking\PacketHandler.cs:33)
+ClientSocket:Update() (at U:\GitHub\MMORPG\Assets\Scripts\Networking\ClientSocket.cs:41)
+ 
+(Filename: U:/GitHub/MMORPG/Assets/Scripts/Networking/PacketHandler.cs Line: 126)
+
+Player with ID: 0 walked towards: 258.5|260.5
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+PacketHandler:ReceivePlayerPosition(Byte[]) (at U:\GitHub\MMORPG\Assets\Scripts\Networking\PacketHandler.cs:126)
+PacketHandler:Handle(Byte[], Socket) (at U:\GitHub\MMORPG\Assets\Scripts\Networking\PacketHandler.cs:33)
+ClientSocket:Update() (at U:\GitHub\MMORPG\Assets\Scripts\Networking\ClientSocket.cs:41)
+ 
+(Filename: U:/GitHub/MMORPG/Assets/Scripts/Networking/PacketHandler.cs Line: 126)
+
+Player with ID: 0 walked towards: 257.5|259.5
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+PacketHandler:ReceivePlayerPosition(Byte[]) (at U:\GitHub\MMORPG\Assets\Scripts\Networking\PacketHandler.cs:126)
+PacketHandler:Handle(Byte[], Socket) (at U:\GitHub\MMORPG\Assets\Scripts\Networking\PacketHandler.cs:33)
+ClientSocket:Update() (at U:\GitHub\MMORPG\Assets\Scripts\Networking\ClientSocket.cs:41)
+ 
+(Filename: U:/GitHub/MMORPG/Assets/Scripts/Networking/PacketHandler.cs Line: 126)
+
+Player with ID: 1 disconnected.
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+PacketHandler:ReceivePlayerDisconnected(Byte[]) (at U:\GitHub\MMORPG\Assets\Scripts\Networking\PacketHandler.cs:111)
+PacketHandler:Handle(Byte[], Socket) (at U:\GitHub\MMORPG\Assets\Scripts\Networking\PacketHandler.cs:30)
+ClientSocket:Update() (at U:\GitHub\MMORPG\Assets\Scripts\Networking\ClientSocket.cs:41)
+ 
+(Filename: U:/GitHub/MMORPG/Assets/Scripts/Networking/PacketHandler.cs Line: 111)
 

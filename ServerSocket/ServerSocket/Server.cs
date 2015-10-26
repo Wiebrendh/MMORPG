@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using System.IO;
 
 namespace ServerSocket
 {
@@ -195,6 +190,7 @@ namespace ServerSocket
         public bool online;
         public string name;
         public float xPos, zPos, xCurrPos, zCurrPos;
+        public ClientLevels levels;
 
         public ClientData (Socket _clientSocket, string _name) // Create new client
         {
@@ -209,18 +205,21 @@ namespace ServerSocket
             zPos = 250.5f;
             xCurrPos = 250.5f;
             zCurrPos = 250.5f;
-            
+
             // Start a thread for this client
             clientThread = new Thread(Server.ReceiveData);
             clientThread.Start(this);
 
             // Send packet to show the user that he connected
-            PacketSender.PlayerConnected("Welcome to the server " + name + "!", this, clientSocket);
+            PacketSender.PlayerConnected("Welcome to the server " + name, this, clientSocket);
+
+            // Create client levels
+            levels = new ClientLevels(this);
         }
          
         public void Connected (Socket _clientSocket) // Client rejoined
         {
-            // Set client data6
+            // Set client data
             clientSocket = _clientSocket;
             online = true;
 
@@ -229,7 +228,10 @@ namespace ServerSocket
             clientThread.Start(this);
 
             // Send packet to show the user that he connected
-            PacketSender.PlayerConnected("Welcome back " + name + "!", this, clientSocket);
+            PacketSender.PlayerConnected("Welcome back " + name, this, clientSocket);
+
+            // Ask for level update
+            levels.SendData();
         }
 
         public void Disconnect ()
@@ -265,9 +267,77 @@ namespace ServerSocket
         }
     }
 
+    public class ClientLevels
+    {
+
+        public ClientData client;
+
+        public List<int> neededXP = new List<int>();
+
+        public List<int> levels = new List<int>();
+        public List<int> xp = new List<int>();
+
+        public ClientLevels (ClientData _client)
+        {
+            // Add client to this object
+            client = _client;
+
+            // Add xp ranges
+            neededXP.AddRange(new List<int>() { 83, 174, 276, 388, 512, 650, 801, 969, 1154, 1358, 1584, 1833, 2107, 2411, 2746, 3115, 3523, 3973, 4470 }); // Done till lvl 20
+
+            // Add levels and xp
+            for (int i = 0; i < 4; i++)
+            {
+                levels.Add(1);
+                xp.Add(0);
+            }
+        }
+
+        public void AddXP (int skill, int amount)
+        {
+            // Add xp and check for level up
+            xp[skill] += amount;
+            if (xp[skill] > neededXP[levels[skill] - 1])
+            {
+                levels[skill]++;
+            }
+            SendData();
+        }
+
+        public void SendData ()
+        {
+            // Send level update to client
+            List<byte> packet = new List<byte>();
+
+            packet.AddRange(BitConverter.GetBytes((ushort)6)); // Packet type
+
+            // Add current level
+            packet.AddRange(BitConverter.GetBytes((ushort)levels[0])); // Attack level
+            packet.AddRange(BitConverter.GetBytes((ushort)levels[1])); // Strength level
+            packet.AddRange(BitConverter.GetBytes((ushort)levels[2])); // Defence level
+            packet.AddRange(BitConverter.GetBytes((ushort)levels[3])); // Woodcutting level
+
+            // Add current xp
+            packet.AddRange(BitConverter.GetBytes((int)xp[0])); // Attack xp
+            packet.AddRange(BitConverter.GetBytes((int)xp[1])); // Strength xp
+            packet.AddRange(BitConverter.GetBytes((int)xp[2])); // Defence xp
+            packet.AddRange(BitConverter.GetBytes((int)xp[3])); // Woodcutting xp
+
+            // Add needed xp
+            packet.AddRange(BitConverter.GetBytes((int)neededXP[levels[0] - 1])); // Attack needed xp
+            packet.AddRange(BitConverter.GetBytes((int)neededXP[levels[1] - 1])); // Strength needed xp
+            packet.AddRange(BitConverter.GetBytes((int)neededXP[levels[2] - 1])); // Defence needed xp
+            packet.AddRange(BitConverter.GetBytes((int)neededXP[levels[3] - 1])); // Woodcutting needed xp
+
+            // Send packet function
+            PacketSender.SendLevelUpdate(client, packet.ToArray());
+        }
+    }
+
     public class TreeData
     {
         public int id;
+        public int type;
         public int chopperID;
         public bool isBeingChopped;
         public bool isChopped;
@@ -277,6 +347,7 @@ namespace ServerSocket
         public TreeData (int iD) // Create new tree
         {
             id = iD;
+            type = 0;
             isBeingChopped = false;
             isChopped = false;
         }

@@ -33,6 +33,9 @@ namespace ServerSocket
                 case 4:
                     ReceiveTreeState(packet);
                     break;
+                case 5:
+                    ReceiveLevelRequest(packet);
+                    break;
             }
         }
 
@@ -95,7 +98,8 @@ namespace ServerSocket
             string playerName = Encoding.ASCII.GetString(packet, 6, playerNameLength);
             string playerMessage = Encoding.ASCII.GetString(packet, 6 + playerNameLength, playerMessageLength);
 
-            Console.WriteLine(playerMessage);
+            // Send packet to clients with this message
+            PacketSender.SendTextMessage(playerName, playerMessage);
         }
 
         public static void ReceiveTreeState (byte[] packet) // Receive edited state of tree
@@ -119,15 +123,25 @@ namespace ServerSocket
                 tree.isBeingChopped = true;
                 tree.chopperID = playerID;
             }
-            if (treeState == 2) // Set tree state to chopped
+            if (treeState == 2) // Set tree state to chopped down
             {
                 tree.isChopped = true;
                 tree.isBeingChopped = false;
                 tree.chopperID = -1;
+                Server.clients[playerID].levels.AddXP(3, 25);
             }
 
             // Send packet to clients that tree is being chopped
             PacketSender.SendTreeState(treeID, treeState, playerID);
+        }
+
+        public static void ReceiveLevelRequest (byte[] packet) // Receive edited state of tree
+        {
+            // Convert data
+            int playerID = BitConverter.ToUInt16(packet, 2);
+
+            // Send packet to clients that tree is being chopped
+            Server.clients[playerID].levels.SendData();
         }
     }
 }

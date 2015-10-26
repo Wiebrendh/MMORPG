@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System;
 using System.Text;
 using System.Net.Sockets;
@@ -6,6 +7,7 @@ using System.Net.Sockets;
 public class PacketHandler : MonoBehaviour
 {
 
+    public Chat chat;
     public Game game;
     public PacketSender sender;
 
@@ -31,9 +33,15 @@ public class PacketHandler : MonoBehaviour
                 ReceivePlayerPosition(packet);
                 break;
             case 4:
+                ReceiveTextMessage(packet);
+                break;
+            case 5:
                 ReceiveTreeState(packet);
                 break;
-		}
+            case 6:
+                ReceiveLevelUpdate(packet);
+                break;
+        }
 	}
 	
 	void ConnectedToServer (byte[] packet)
@@ -46,6 +54,10 @@ public class PacketHandler : MonoBehaviour
         // Receive player position
         game.playerPosition.x = (float)BitConverter.ToDouble(packet, 6 + messageLength);
         game.playerPosition.z = (float)BitConverter.ToDouble(packet, 14 + messageLength);
+
+        // Activate game UI & deactivate main menu
+        game.gameUICamera.SetActive(true);
+        game.mainMenuCamera.SetActive(false);
 
         // Spawn player if everything is done
         Instantiate(localPlayer, new Vector3(game.playerPosition.x, 1, game.playerPosition.z), Quaternion.identity).name = "LocalPlayer";
@@ -71,7 +83,7 @@ public class PacketHandler : MonoBehaviour
         }
 
         // Debug message
-        print("Message from server: " + message + ". " + amountOfPlayers + " player(s) are connected.");
+        chat.AddMessage(null, message + "! " + amountOfPlayers + " player(s) are connected.", true);
 	}
 
     void ReceivePlayerConnected (byte[] packet)
@@ -96,7 +108,7 @@ public class PacketHandler : MonoBehaviour
 
         // Remove NetworkPlayer with ID
         game.RemoveNetworkPlayer(playerID);
-        Debug.Log("Player with ID: " + playerID + " connected.");
+        Debug.Log("Player with ID: " + playerID + " disconnected.");
     }
 
     void ReceivePlayerPosition (byte[] packet)
@@ -117,6 +129,18 @@ public class PacketHandler : MonoBehaviour
         else if (playerID == game.playerID) game.playerPosition = new Vector3(playerPosX, 1, playerPosZ);
     }
 
+    void ReceiveTextMessage (byte[] packet)
+    {
+        // Convert data store in variables
+        int playerNameLength = BitConverter.ToInt16(packet, 2);
+        int playerMessageLength = BitConverter.ToInt16(packet, 4);
+        string playerName = Encoding.ASCII.GetString(packet, 6, playerNameLength);
+        string playerMessage = Encoding.ASCII.GetString(packet, 6 + playerNameLength, playerMessageLength);
+
+        // Add message to chat
+        chat.AddMessage(playerName, playerMessage, false);
+    }
+
     void ReceiveTreeState (byte[] packet)
     {
         // Convert data
@@ -130,5 +154,62 @@ public class PacketHandler : MonoBehaviour
         {
             tree.SetState(treeState, choppedByID);
         }
+    }
+
+    void ReceiveLevelUpdate (byte[] packet)
+    {
+        // Convert data
+        int attack = BitConverter.ToInt16(packet, 2); // Attack level
+        int strength = BitConverter.ToInt16(packet, 4); // Strength level
+        int defence = BitConverter.ToInt16(packet, 6); // Defence level
+        int woodcutting = BitConverter.ToInt16(packet, 8); // Woodcutting level
+        int attackXP = BitConverter.ToInt32(packet, 10); // Attack xp
+        int strengthXP = BitConverter.ToInt32(packet, 14); // Strength xp
+        int defenceXP = BitConverter.ToInt32(packet, 18); // Defence xp
+        int woodcuttingXP = BitConverter.ToInt32(packet, 22); // Woodcutting xp
+        int attackNeededXP = BitConverter.ToInt32(packet, 26); // Attack needed xp
+        int strengthNeededXP = BitConverter.ToInt32(packet, 30); // Strength needed xp
+        int defenceNeededXP = BitConverter.ToInt32(packet, 34); // Defence needed xp
+        int woodcuttingNeededXP = BitConverter.ToInt32(packet, 38); // Woodcutting neededs xp
+
+        // Check for level ups
+        bool[] justLeveled = new bool[4];
+        if (attack > game.attack && game.attack > 0)
+        {
+            chat.AddMessage(null, "You leveled up in the skill attack, new level is " + attack + ". Congratulations!", true);
+            justLeveled[0] = true;
+        }
+        if (strength > game.strength && game.strength > 0)
+        {
+            chat.AddMessage(null, "You leveled up in the skill strength, new level is " + strength + ". Congratulations!", true);
+            justLeveled[1] = true;
+        }
+        if (defence > game.defence && game.defence > 0)
+        {
+            chat.AddMessage(null, "You leveled up in the skill defence, new level is " + defence + ". Congratulations!", true);
+            justLeveled[2] = true;
+        }
+        if (woodcutting > game.woodcutting && game.woodcutting > 0)
+        {
+            chat.AddMessage(null, "You leveled up in the skill woodcutting, new level is " + woodcutting + ". Congratulations!", true);
+            justLeveled[3] = true;
+        }
+
+        game.attack = attack;
+        game.strength = strength;
+        game.defence = defence;
+        game.woodcutting = woodcutting;
+
+
+        // Insert in UI
+        try
+        {
+            // Add level
+            GameObject.Find("Stats_Attack").transform.FindChild("CurrentLevel").GetComponent<Text>().text = "Current level: " + attack.ToString();
+            GameObject.Find("Stats_Strength").transform.FindChild("CurrentLevel").GetComponent<Text>().text = "Current level: " + strength.ToString();
+            GameObject.Find("Stats_Defence").transform.FindChild("CurrentLevel").GetComponent<Text>().text = "Current level: " + defence.ToString();
+            GameObject.Find("Stats_Woodcutting").transform.FindChild("CurrentLevel").GetComponent<Text>().text = "Current level: " + woodcutting.ToString();            
+        }
+        catch { }
     }
 }
