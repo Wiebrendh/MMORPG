@@ -11,18 +11,20 @@ namespace ServerSocket
 
         static Socket socket;
         public static List<ClientData> clients;
-        public static List<TreeData> trees = new List<TreeData>();
+        public static List<List<object>> worldObjects = new List<List<object>>();
 
         public static Thread acceptThread;
         public static Thread updateThread;
+        public static Thread objectsThread;
 
         static void Main(string[] args)
         {
             Start();
 
             // Add trees
+            worldObjects.Add(new List<object>());
             for (int i = 0; i < 7; i++)
-                trees.Add(new TreeData(i));
+                worldObjects[0].Add(new TreeData(i));
 
             while (true)
             {
@@ -89,8 +91,12 @@ namespace ServerSocket
             acceptThread.Start();
 
             // Start sending data updates (1000 miliseconds)
-            updateThread = new Thread(PacketSender.SendDataUpdate);
+            //updateThread = new Thread(PacketSender.SendDataUpdate);
             //updateThread.Start();
+
+            // Start world objects thread
+            objectsThread = new Thread(WorldObjectsThread);
+            objectsThread.Start();
         }
 
         static void Accept()
@@ -148,6 +154,18 @@ namespace ServerSocket
             }
         }
 
+        public static void WorldObjectsThread ()
+        {
+            // Control trees
+            foreach (TreeData tree in worldObjects[0])
+            {
+                
+            }
+
+            Thread.Sleep(100);
+            WorldObjectsThread();
+        }
+
         public static ClientData GetPlayerByID (int id) // Get a player by his ID
         {
             // Loop through every player
@@ -166,7 +184,7 @@ namespace ServerSocket
         public static TreeData GetTreeByID (int id) // Get tree by his ID
         {
             // Loop through every enemy
-            foreach (TreeData tree in trees)
+            foreach (TreeData tree in worldObjects[0])
             {
                 // Check if client id == id
                 if (tree.id == id)
@@ -309,7 +327,7 @@ namespace ServerSocket
             // Send level update to client
             List<byte> packet = new List<byte>();
 
-            packet.AddRange(BitConverter.GetBytes((ushort)6)); // Packet type
+            packet.AddRange(BitConverter.GetBytes((ushort)5)); // Packet type
 
             // Add current level
             packet.AddRange(BitConverter.GetBytes((ushort)levels[0])); // Attack level
@@ -344,9 +362,9 @@ namespace ServerSocket
 
         public int reupTime;
 
-        public TreeData (int iD) // Create new tree
+        public TreeData (int _id) // Create new tree
         {
-            id = iD;
+            id = _id;
             type = 0;
             isBeingChopped = false;
             isChopped = false;

@@ -36,11 +36,9 @@ public class PacketHandler : MonoBehaviour
                 ReceiveTextMessage(packet);
                 break;
             case 5:
-                ReceiveTreeState(packet);
-                break;
-            case 6:
                 ReceiveLevelUpdate(packet);
                 break;
+            
         }
 	}
 	
@@ -139,21 +137,6 @@ public class PacketHandler : MonoBehaviour
 
         // Add message to chat
         chat.AddMessage(playerName, playerMessage, false);
-    }
-
-    void ReceiveTreeState (byte[] packet)
-    {
-        // Convert data
-        int treeID = BitConverter.ToInt16(packet, 2); // Tree id
-        int treeState = BitConverter.ToInt16(packet, 4); // Get tree state
-        int choppedByID = BitConverter.ToInt16(packet, 6); // Get chopped by id
-
-        // Insert to the correct TreeData
-        TreeData tree = game.GetTreeFromID(treeID);
-        if (tree != null)
-        {
-            tree.SetState(treeState, choppedByID);
-        }
     }
 
     void ReceiveLevelUpdate (byte[] packet)

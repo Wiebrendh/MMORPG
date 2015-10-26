@@ -112,7 +112,7 @@ public class ActionMenu : MonoBehaviour
                                 // Check if player is standing next to tree
                                 if (Math.Round(Vector3.Distance(actionMenuObject.transform.position, localPlayer.transform.position), 1) <= 1.8f)
                                 {
-                                    sender.SendTreeState(tree.treeID, 1);
+                                    sender.SendHarvestObject(0, tree.treeID);
                                     localPlayer.canDoAction = false;
                                 }
                                 else
@@ -204,7 +204,7 @@ public class ActionMenu : MonoBehaviour
                                 // Check if player is standing next to tree
                                 if (Math.Round(Vector3.Distance(actionMenuObject.transform.position, localPlayer.transform.position), 1) <= 1.8f)
                                 {
-                                    sender.SendTreeState(tree.treeID, 1);
+                                    sender.SendHarvestObject(0, tree.treeID);
                                     localPlayer.canDoAction = false;
                                 }
                                 else chat.AddMessage(null, "You have to stand next to tree to chop it down.", true);

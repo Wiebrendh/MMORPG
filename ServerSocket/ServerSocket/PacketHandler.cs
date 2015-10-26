@@ -31,10 +31,10 @@ namespace ServerSocket
                     ReceiveTextMessage(packet);
                     break;
                 case 4:
-                    ReceiveTreeState(packet);
+                    ReceiveLevelRequest(packet);
                     break;
                 case 5:
-                    ReceiveLevelRequest(packet);
+                    ReceiveHarvestObject(packet);
                     break;
             }
         }
@@ -102,43 +102,36 @@ namespace ServerSocket
             PacketSender.SendTextMessage(playerName, playerMessage);
         }
 
-        public static void ReceiveTreeState (byte[] packet) // Receive edited state of tree
+        public static void ReceiveLevelRequest (byte[] packet) // Receive request from player for stats
         {
             // Convert data
-            int playerID = BitConverter.ToUInt16(packet, 2);
-            int treeID = BitConverter.ToUInt16(packet, 4);
-            int treeState = BitConverter.ToUInt16(packet, 6);
-
-            // Find and set tree data
-            TreeData tree = Server.GetTreeByID(treeID);
-            if (treeState == 0) // Set tree state to normal
-            {
-                tree.isChopped = false;
-                tree.isBeingChopped = false;
-                tree.chopperID = -1;
-            }
-            if (treeState == 1) // Set tree state to being chopped
-            {
-                tree.isChopped = false;
-                tree.isBeingChopped = true;
-                tree.chopperID = playerID;
-            }
-            if (treeState == 2) // Set tree state to chopped down
-            {
-                tree.isChopped = true;
-                tree.isBeingChopped = false;
-                tree.chopperID = -1;
-                Server.clients[playerID].levels.AddXP(3, 25);
-            }
+            int playerID = BitConverter.ToInt16(packet, 2);
 
             // Send packet to clients that tree is being chopped
-            PacketSender.SendTreeState(treeID, treeState, playerID);
+            Server.clients[playerID].levels.SendData();
         }
 
-        public static void ReceiveLevelRequest (byte[] packet) // Receive edited state of tree
+        public static void ReceiveHarvestObject (byte[] packet) // Receive request from player to harvest a object
         {
             // Convert data
-            int playerID = BitConverter.ToUInt16(packet, 2);
+            int playerID = BitConverter.ToInt16(packet, 2);
+            int objectType = BitConverter.ToInt16(packet, 4);
+            int objectID = BitConverter.ToInt16(packet, 6);
+            Console.WriteLine(objectID + " " + Server.worldObjects[0].Count);
+            // Use this data
+            switch (objectType)
+            {
+                case 0:
+                    {
+                        TreeData tree = (TreeData)Server.worldObjects[0][objectID];
+                        // If you can chop the tree
+                        if (!tree.isBeingChopped)
+                        {
+                            Console.WriteLine(tree.id);
+                        }
+                    }                    
+                    break;
+            }
 
             // Send packet to clients that tree is being chopped
             Server.clients[playerID].levels.SendData();

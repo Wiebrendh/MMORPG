@@ -67,25 +67,25 @@ public class PacketSender : MonoBehaviour
         socket.socket.Send(packet.ToArray(), SocketFlags.None);
     }
 
-    public void SendTreeState (int treeID, int state)
+    public void SendLevelsRequest ()
     {
         List<byte> packet = new List<byte>();
 
         packet.AddRange(BitConverter.GetBytes((ushort)4)); // Packet type
         packet.AddRange(BitConverter.GetBytes((ushort)game.playerID)); // Player id
-        packet.AddRange(BitConverter.GetBytes((ushort)treeID)); // Tree id
-        packet.AddRange(BitConverter.GetBytes((ushort)state)); // Tree id
 
         // Send packet
         socket.socket.Send(packet.ToArray(), SocketFlags.None);
     }
 
-    public void SendLevelsRequest ()
+    public void SendHarvestObject (int type, int id)
     {
         List<byte> packet = new List<byte>();
 
         packet.AddRange(BitConverter.GetBytes((ushort)5)); // Packet type
         packet.AddRange(BitConverter.GetBytes((ushort)game.playerID)); // Player id
+        packet.AddRange(BitConverter.GetBytes((ushort)type)); // Object type
+        packet.AddRange(BitConverter.GetBytes((ushort)id)); // Object id
 
         // Send packet
         socket.socket.Send(packet.ToArray(), SocketFlags.None);

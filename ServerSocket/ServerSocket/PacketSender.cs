@@ -156,25 +156,6 @@ namespace ServerSocket
             }
         }
 
-        public static void SendTreeState (int treeID, int state, int choppedByID)
-        {
-            List<byte> packet = new List<byte>();
-
-            packet.AddRange(BitConverter.GetBytes((ushort)5)); // Packet type
-            packet.AddRange(BitConverter.GetBytes((ushort)treeID)); // Tree id
-            packet.AddRange(BitConverter.GetBytes((int)state)); // Tree state
-            packet.AddRange(BitConverter.GetBytes((int)choppedByID)); // Chopped by id
-
-            // Send data to every client, if connected
-            foreach (ClientData client in Server.clients)
-            {
-                if (client.online && client.clientSocket.Connected)
-                {
-                    client.clientSocket.Send(packet.ToArray(), 0, packet.Count, SocketFlags.None);
-                }
-            }
-        }
-
         public static void SendLevelUpdate(ClientData client, byte[] packet)
         {
             // Send packet to client, if connected
