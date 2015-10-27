@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using System.Timers;
 
 namespace ServerSocket
 {
@@ -22,7 +23,7 @@ namespace ServerSocket
 
             // Add trees
             worldObjects.Add(new List<object>());
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < 9; i++)
                 worldObjects[0].Add(new TreeData(i));
 
             while (true)
@@ -83,6 +84,7 @@ namespace ServerSocket
             socket.Bind(ip);
             socket.Listen(500);
 
+            // Debug server started
             Console.WriteLine("Server started!");
 
             // Start listen and accepting clients
@@ -90,7 +92,7 @@ namespace ServerSocket
             acceptThread.Start();
 
             // Start world objects thread
-            objectsThread = new Thread(WorldObjectsThread);
+            objectsThread = new Thread(StartWorldObjectsThread);
             objectsThread.Start();
         }
 
@@ -149,7 +151,15 @@ namespace ServerSocket
             }
         }
 
-        public static void WorldObjectsThread ()
+        public static void StartWorldObjectsThread ()
+        {
+            // Restart function after 100 miliseconds
+            System.Timers.Timer timer = new System.Timers.Timer(100);
+            timer.Elapsed += new ElapsedEventHandler(WorldObjectsThread);
+            timer.Enabled = true;
+        }
+
+        public static void WorldObjectsThread (object sender, ElapsedEventArgs e)
         {
             // Control trees
             foreach (TreeData tree in worldObjects[0])
@@ -163,7 +173,6 @@ namespace ServerSocket
                     // If tree is chopped down
                     if (Math.Round(tree.chopTimeLeft, 1) == 0f)
                     {
-                        Console.WriteLine("treedown");
                         tree.chopTimeLeft = 0;
                         tree.reupTimeLeft = 10;
                         tree.chopperClient.levels.AddXP(3, 25);
@@ -180,16 +189,11 @@ namespace ServerSocket
                     // If tree is chopped down
                     if (Math.Round(tree.reupTimeLeft, 1) == 0f)
                     {
-                        Console.WriteLine("treeup");
                         tree.reupTimeLeft = 0;
                         PacketSender.SendObjectState(0, tree.id, true);
                     }
                 }
             }
-
-            // Sleep thread and call function
-            Thread.Sleep(100);
-            WorldObjectsThread();
         }
 
         public static ClientData GetPlayerByID (int id) // Get a player by his ID
@@ -245,10 +249,10 @@ namespace ServerSocket
             name = _name;
 
             // Set standard spawn position
-            xPos = 250.5f;
-            zPos = 250.5f;
-            xCurrPos = 250.5f;
-            zCurrPos = 250.5f;
+            xPos = 254.5f;
+            zPos = 247.5f;
+            xCurrPos = 254.5f;
+            zCurrPos = 247.5f;
 
             // Start a thread for this client
             clientThread = new Thread(Server.ReceiveData);
@@ -391,4 +395,5 @@ namespace ServerSocket
             id = _id;
         }
     }
+
 }

@@ -47,6 +47,8 @@ public class ClientSocket : MonoBehaviour
     {
         if (nameInputField.text.Length >= 5)
         {
+            ipString = GameObject.Find("InputField_ServerIP").GetComponent<InputField>().text;
+
             game.playerName = nameInputField.text;
             Thread connectionThread = new Thread(ConnectServer);
             connectionThread.Start(connectionThread);

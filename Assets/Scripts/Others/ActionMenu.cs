@@ -156,8 +156,11 @@ public class ActionMenu : MonoBehaviour
                 {
                     case 0:
                         {
-                            Vector2 pos = ConvertToWalkPos(new Vector2(actionMenuWorldPos.x, actionMenuWorldPos.z));
-                            sender.SendWantedPosition(new Vector2(pos.x, pos.y));
+                            if (actionMenuWorldPos.y == 0.00714159f)
+                            {
+                                Vector2 pos = ConvertToWalkPos(new Vector2(actionMenuWorldPos.x, actionMenuWorldPos.z));
+                                sender.SendWantedPosition(new Vector2(pos.x, pos.y));
+                            }
                         }
                         break;
                     case 1:

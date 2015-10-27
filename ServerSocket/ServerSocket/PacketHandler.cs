@@ -130,7 +130,6 @@ namespace ServerSocket
                         {
                             tree.chopperClient = Server.clients[playerID];
                             tree.chopTimeLeft = 5;
-                            Console.WriteLine("chopping");
                         }
                         else
                             PacketSender.SendTextMessage(true, Server.clients[playerID], string.Empty, "This tree is already being chopped or it is down.");
