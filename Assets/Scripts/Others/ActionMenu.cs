@@ -106,19 +106,13 @@ public class ActionMenu : MonoBehaviour
                         {
                             TreeData tree = actionMenuObject.GetComponent<TreeData>();
 
-                            // If player is able to chop tree
-                            if (!tree.beingChopped && !tree.treeDown)
+                            // Check if player is standing next to tree
+                            if (Math.Round(Vector3.Distance(actionMenuObject.transform.position, localPlayer.transform.position), 1) <= 1.8f)
                             {
-                                // Check if player is standing next to tree
-                                if (Math.Round(Vector3.Distance(actionMenuObject.transform.position, localPlayer.transform.position), 1) <= 1.8f)
-                                {
-                                    sender.SendHarvestObject(0, tree.treeID);
-                                    localPlayer.canDoAction = false;
-                                }
-                                else
-                                    Debug.Log("You have to stand next to tree to chop it down.");
+                                sender.SendHarvestObject(0, tree.treeID);
                             }
-                            else Debug.Log("You cannot chop this tree (Already chopped, or someone else is chopping).");
+                            else
+                                Debug.Log("You have to stand next to tree to chop it down.");
                         }
                         break;
                 }
@@ -131,7 +125,7 @@ public class ActionMenu : MonoBehaviour
             CloseActionMenu();
 	}
 
-    void OnGUI () // GUI
+    void OnGUI () // OnGUI
     {
         if (actionMenuActive)
         {
@@ -196,20 +190,14 @@ public class ActionMenu : MonoBehaviour
                 {
                     case 0:
                         {
-                            TreeData tree = actionMenuObject.GetComponent<TreeData>();
+                            TreeData tree = actionMenuObject.GetComponent<TreeData>();  
 
-                            // If player is able to chop tree
-                            if (!tree.beingChopped && !tree.treeDown)
+                            // Check if player is standing next to tree
+                            if (Math.Round(Vector3.Distance(actionMenuObject.transform.position, localPlayer.transform.position), 1) <= 1.8f)
                             {
-                                // Check if player is standing next to tree
-                                if (Math.Round(Vector3.Distance(actionMenuObject.transform.position, localPlayer.transform.position), 1) <= 1.8f)
-                                {
-                                    sender.SendHarvestObject(0, tree.treeID);
-                                    localPlayer.canDoAction = false;
-                                }
-                                else chat.AddMessage(null, "You have to stand next to tree to chop it down.", true);
+                                sender.SendHarvestObject(0, tree.treeID);
                             }
-                            else chat.AddMessage(null, "You cannot chop this tree, the tree is down or already being chopped.", true);
+                            else chat.AddMessage(null, "You have to stand next to tree to chop it down.", true);
                         }
                         break;
                     case 1:

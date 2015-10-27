@@ -14,7 +14,6 @@ namespace ServerSocket
         public static List<List<object>> worldObjects = new List<List<object>>();
 
         public static Thread acceptThread;
-        public static Thread updateThread;
         public static Thread objectsThread;
 
         static void Main(string[] args)
@@ -90,10 +89,6 @@ namespace ServerSocket
             acceptThread = new Thread(Accept);
             acceptThread.Start();
 
-            // Start sending data updates (1000 miliseconds)
-            //updateThread = new Thread(PacketSender.SendDataUpdate);
-            //updateThread.Start();
-
             // Start world objects thread
             objectsThread = new Thread(WorldObjectsThread);
             objectsThread.Start();
@@ -159,9 +154,40 @@ namespace ServerSocket
             // Control trees
             foreach (TreeData tree in worldObjects[0])
             {
-                
+                // Check for trees that are being chopped
+                if (tree.chopTimeLeft >= .1f)
+                {
+                    tree.chopTimeLeft -= .1f;
+                    tree.chopTimeLeft = (float)Math.Round(tree.chopTimeLeft, 1);
+                    
+                    // If tree is chopped down
+                    if (Math.Round(tree.chopTimeLeft, 1) == 0f)
+                    {
+                        Console.WriteLine("treedown");
+                        tree.chopTimeLeft = 0;
+                        tree.reupTimeLeft = 10;
+                        tree.chopperClient.levels.AddXP(3, 25);
+                        PacketSender.SendObjectState(0, tree.id, false);          
+                    }
+                }
+
+                // Check for trees that are down
+                if (tree.reupTimeLeft >= .1f)
+                {
+                    tree.reupTimeLeft -= .1f;
+                    tree.reupTimeLeft = (float)Math.Round(tree.reupTimeLeft, 1);
+                    
+                    // If tree is chopped down
+                    if (Math.Round(tree.reupTimeLeft, 1) == 0f)
+                    {
+                        Console.WriteLine("treeup");
+                        tree.reupTimeLeft = 0;
+                        PacketSender.SendObjectState(0, tree.id, true);
+                    }
+                }
             }
 
+            // Sleep thread and call function
             Thread.Sleep(100);
             WorldObjectsThread();
         }
@@ -348,26 +374,21 @@ namespace ServerSocket
             packet.AddRange(BitConverter.GetBytes((int)neededXP[levels[3] - 1])); // Woodcutting needed xp
 
             // Send packet function
-            PacketSender.SendLevelUpdate(client, packet.ToArray());
+            PacketSender.SendStatsUpdate(client, packet.ToArray());
         }
     }
 
     public class TreeData
     {
         public int id;
-        public int type;
-        public int chopperID;
-        public bool isBeingChopped;
-        public bool isChopped;
+        public ClientData chopperClient;
 
-        public int reupTime;
+        public float chopTimeLeft;
+        public float reupTimeLeft;
 
         public TreeData (int _id) // Create new tree
         {
             id = _id;
-            type = 0;
-            isBeingChopped = false;
-            isChopped = false;
         }
     }
 }

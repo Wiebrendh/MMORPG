@@ -36,7 +36,10 @@ public class PacketHandler : MonoBehaviour
                 ReceiveTextMessage(packet);
                 break;
             case 5:
-                ReceiveLevelUpdate(packet);
+                ReceiveStatsUpdate(packet);
+                break;
+            case 6:
+                ReceiveObjectState(packet);
                 break;
             
         }
@@ -87,15 +90,17 @@ public class PacketHandler : MonoBehaviour
     void ReceivePlayerConnected (byte[] packet)
     {
         // Convert data
-        int playerID = BitConverter.ToUInt16(packet, 2); // Player id
+        int playerID = BitConverter.ToInt16(packet, 2); // Player id
         float playerPosX = (float)BitConverter.ToDouble(packet, 4); // Player x pos
         float playerPosZ = (float)BitConverter.ToDouble(packet, 12); // Player z pos
+        int playerNameLength = BitConverter.ToInt16(packet, 20); // Player name length
+        string playerName = Encoding.ASCII.GetString(packet, 22, playerNameLength); // Player name
 
         // Create new NetworkPlayer
         if (playerID != game.playerID)
         {
             game.CreateNetworkPlayer(networkPlayer, playerID, playerPosX, playerPosZ, playerPosX, playerPosZ);
-            Debug.Log("Player with ID: " + playerID + " connected.");
+            chat.AddMessage(string.Empty, "Player with the name " + playerName + " has connected", true);
         }
     }
 
@@ -130,16 +135,17 @@ public class PacketHandler : MonoBehaviour
     void ReceiveTextMessage (byte[] packet)
     {
         // Convert data store in variables
-        int playerNameLength = BitConverter.ToInt16(packet, 2);
-        int playerMessageLength = BitConverter.ToInt16(packet, 4);
-        string playerName = Encoding.ASCII.GetString(packet, 6, playerNameLength);
-        string playerMessage = Encoding.ASCII.GetString(packet, 6 + playerNameLength, playerMessageLength);
+        bool gameMessage = BitConverter.ToBoolean(packet, 2);
+        int playerNameLength = BitConverter.ToInt16(packet, 3);
+        int playerMessageLength = BitConverter.ToInt16(packet, 5);
+        string playerName = Encoding.ASCII.GetString(packet, 7, playerNameLength);
+        string playerMessage = Encoding.ASCII.GetString(packet, 7 + playerNameLength, playerMessageLength);
 
         // Add message to chat
-        chat.AddMessage(playerName, playerMessage, false);
+        chat.AddMessage(playerName, playerMessage, gameMessage);
     }
 
-    void ReceiveLevelUpdate (byte[] packet)
+    void ReceiveStatsUpdate (byte[] packet)
     {
         // Convert data
         int attack = BitConverter.ToInt16(packet, 2); // Attack level
@@ -195,4 +201,24 @@ public class PacketHandler : MonoBehaviour
         }
         catch { }
     }
+
+    void ReceiveObjectState (byte[] packet)
+    {
+        // Convert data
+        int type = BitConverter.ToInt16(packet, 2); // Object type
+        int id = BitConverter.ToInt16(packet, 4); // Object id
+        bool state = BitConverter.ToBoolean(packet, 6); // Object state
+
+        // Switch to find right object
+        switch (type)
+        {
+            case 0:
+                {
+                    TreeData tree = game.GetTreeFromID(id);
+                    tree.SetState(state);
+                }
+                break;
+        }
+    }
+
 }

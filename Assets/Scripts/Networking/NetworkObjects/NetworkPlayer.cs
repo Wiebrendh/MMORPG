@@ -10,6 +10,7 @@ public class NetworkPlayer : MonoBehaviour
     public bool disconnected;
 
     public int playerID;
+    public string playerName;
     public Vector3 playerPosition;
 
     void Start ()

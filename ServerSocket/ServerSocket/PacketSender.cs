@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
 using System.Net.Sockets;
 
@@ -60,27 +58,7 @@ namespace ServerSocket
             Server.clients[id].clientSocket.Send(packet.ToArray(), SocketFlags.None);
             Server.clients[id].Disconnect(); // Start disconnect function
         }
-
-        public static void SendDataUpdate()
-        {
-            List<byte> packet = new List<byte>();
-
-            packet.AddRange(BitConverter.GetBytes((ushort)2)); // Packet type
-
-            // Send data to every client, if connected
-            foreach (ClientData client in Server.clients)
-            {
-                if (client.online && client.clientSocket.Connected)
-                {
-                    client.clientSocket.Send(packet.ToArray(), 0, packet.Count, SocketFlags.None); 
-                }
-            }
-
-            // Resend update after 1000 miliseconds
-            Thread.Sleep(1000);
-            SendDataUpdate();
-        }
-
+        
         public static void SendPlayerConnect (ClientData player)
         {
             List<byte> packet = new List<byte>();
@@ -89,6 +67,8 @@ namespace ServerSocket
             packet.AddRange(BitConverter.GetBytes((ushort)player.id)); // Client id
             packet.AddRange(BitConverter.GetBytes((double)player.xPos)); // Client x pos
             packet.AddRange(BitConverter.GetBytes((double)player.zPos)); // Client z pos
+            packet.AddRange(BitConverter.GetBytes((ushort)player.name.Length)); // Client name length
+            packet.AddRange(Encoding.ASCII.GetBytes(player.name)); // Client name
 
             // Send data to every client, if connected
             foreach (ClientData client in Server.clients)
@@ -136,15 +116,49 @@ namespace ServerSocket
             }
         }
 
-        public static void SendTextMessage(string sender, string message)
+        public static void SendTextMessage(bool game, ClientData player, string sender, string message)
         {
             List<byte> packet = new List<byte>();
 
             packet.AddRange(BitConverter.GetBytes((ushort)4)); // Packet type
+            packet.AddRange(BitConverter.GetBytes(game)); // Is it a game message
             packet.AddRange(BitConverter.GetBytes((ushort)sender.Length)); // Player name length
             packet.AddRange(BitConverter.GetBytes((ushort)message.Length)); // Player message length
             packet.AddRange(Encoding.ASCII.GetBytes(sender)); // Player name
             packet.AddRange(Encoding.ASCII.GetBytes(message)); // Player message
+
+            // Send data to every client, if connected, if player is empty
+            if (player == null)
+            {
+                foreach (ClientData client in Server.clients)
+                {
+                    if (client.online && client.clientSocket.Connected)
+                    {
+                        client.clientSocket.Send(packet.ToArray(), 0, packet.Count, SocketFlags.None);
+                    }
+                }
+            }
+            else // Send to the player specified in player variable
+                player.clientSocket.Send(packet.ToArray(), SocketFlags.None);
+        }
+
+        public static void SendStatsUpdate(ClientData client, byte[] packet)
+        {
+            // Send packet to client, if connected
+            if (client.online && client.clientSocket.Connected)
+            {
+                client.clientSocket.Send(packet, 0, packet.Length, SocketFlags.None);
+            }
+        }
+
+        public static void SendObjectState (int type, int id, bool state)
+        {
+            List<byte> packet = new List<byte>();
+
+            packet.AddRange(BitConverter.GetBytes((ushort)6)); // Packet type
+            packet.AddRange(BitConverter.GetBytes((ushort)type)); // Object type
+            packet.AddRange(BitConverter.GetBytes((ushort)id)); // Object id
+            packet.AddRange(BitConverter.GetBytes(state)); // Object state
 
             // Send data to every client, if connected
             foreach (ClientData client in Server.clients)
@@ -153,15 +167,6 @@ namespace ServerSocket
                 {
                     client.clientSocket.Send(packet.ToArray(), 0, packet.Count, SocketFlags.None);
                 }
-            }
-        }
-
-        public static void SendLevelUpdate(ClientData client, byte[] packet)
-        {
-            // Send packet to client, if connected
-            if (client.online && client.clientSocket.Connected)
-            {
-                client.clientSocket.Send(packet, 0, packet.Length, SocketFlags.None);
             }
         }
     }

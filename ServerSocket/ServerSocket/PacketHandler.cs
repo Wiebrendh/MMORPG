@@ -99,7 +99,7 @@ namespace ServerSocket
             string playerMessage = Encoding.ASCII.GetString(packet, 6 + playerNameLength, playerMessageLength);
 
             // Send packet to clients with this message
-            PacketSender.SendTextMessage(playerName, playerMessage);
+            PacketSender.SendTextMessage(false, null, playerName, playerMessage);
         }
 
         public static void ReceiveLevelRequest (byte[] packet) // Receive request from player for stats
@@ -117,18 +117,23 @@ namespace ServerSocket
             int playerID = BitConverter.ToInt16(packet, 2);
             int objectType = BitConverter.ToInt16(packet, 4);
             int objectID = BitConverter.ToInt16(packet, 6);
-            Console.WriteLine(objectID + " " + Server.worldObjects[0].Count);
+            
             // Use this data
             switch (objectType)
             {
                 case 0:
                     {
                         TreeData tree = (TreeData)Server.worldObjects[0][objectID];
+
                         // If you can chop the tree
-                        if (!tree.isBeingChopped)
+                        if (Math.Round(tree.chopTimeLeft, 1) == 0f && Math.Round(tree.reupTimeLeft, 1) == 0)
                         {
-                            Console.WriteLine(tree.id);
+                            tree.chopperClient = Server.clients[playerID];
+                            tree.chopTimeLeft = 5;
+                            Console.WriteLine("chopping");
                         }
+                        else
+                            PacketSender.SendTextMessage(true, Server.clients[playerID], string.Empty, "This tree is already being chopped or it is down.");
                     }                    
                     break;
             }
@@ -136,5 +141,6 @@ namespace ServerSocket
             // Send packet to clients that tree is being chopped
             Server.clients[playerID].levels.SendData();
         }
+
     }
 }

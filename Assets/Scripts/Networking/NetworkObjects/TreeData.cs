@@ -8,8 +8,6 @@ public class TreeData : MonoBehaviour
     public GameObject treeStump;
 
     public int treeID;
-    public bool beingChopped;
-    public bool treeDown;
 
     void Start ()
     {
@@ -21,24 +19,15 @@ public class TreeData : MonoBehaviour
         
     }
 
-    public void SetState (int state, int choppedByID)
+    public void SetState (bool state)
     {
-        if (state == 0)
+        if (state) // If tree is up
         {
-            treeDown = false;
-            beingChopped = false;
             treeUp.SetActive(true);
             treeStump.SetActive(false);
         }
-        if (state == 1)
+        else // If tree is down
         {
-            treeDown = false;
-            beingChopped = true;
-        }
-        if (state == 2) 
-        {
-            treeDown = true;
-            beingChopped = false;
             treeUp.SetActive(false);
             treeStump.SetActive(true);
         }
