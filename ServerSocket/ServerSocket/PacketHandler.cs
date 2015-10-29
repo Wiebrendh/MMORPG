@@ -10,7 +10,7 @@ namespace ServerSocket
     public static class PacketHandler
     {
 
-        public static void Handle (byte[] packet) // Decide with function to call
+        public static void Handle(byte[] packet) // Decide with function to call
         {
             // Get packettype
             ushort packetType = BitConverter.ToUInt16(packet, 0);
@@ -39,14 +39,14 @@ namespace ServerSocket
             }
         }
 
-        public static string GetConnectingPlayerName (byte[] packet) // This packet gets the name of a connecting player
+        public static string GetConnectingPlayerName(byte[] packet) // This packet gets the name of a connecting player
         {
             // Convert data
             ushort nameLength = BitConverter.ToUInt16(packet, 0);
             return Encoding.ASCII.GetString(packet, 2, nameLength);
         }
 
-        public static void PlayerDisconnect (byte[] packet) // Receive player disconnect
+        public static void PlayerDisconnect(byte[] packet) // Receive player disconnect
         {
             // Convert data, store in variable
             int id = BitConverter.ToInt16(packet, 2);
@@ -55,10 +55,10 @@ namespace ServerSocket
             PacketSender.PlayerDisconnected(id);
         }
 
-        public static void ReceiveWantedPosition (byte[] packet) // Receive wanted position of player
+        public static void ReceiveWantedPosition(byte[] packet) // Receive wanted position of player
         {
             int playerID = BitConverter.ToInt16(packet, 2);
-            
+
             try
             {
                 // Convert position data
@@ -73,7 +73,7 @@ namespace ServerSocket
             }
         }
 
-        public static void ReceiveCurrentPosition (byte[] packet) // Receive current position of player
+        public static void ReceiveCurrentPosition(byte[] packet) // Receive current position of player
         {
             int playerID = BitConverter.ToInt16(packet, 2);
 
@@ -102,7 +102,7 @@ namespace ServerSocket
             PacketSender.SendTextMessage(false, null, playerName, playerMessage);
         }
 
-        public static void ReceiveLevelRequest (byte[] packet) // Receive request from player for stats
+        public static void ReceiveLevelRequest(byte[] packet) // Receive request from player for stats
         {
             // Convert data
             int playerID = BitConverter.ToInt16(packet, 2);
@@ -111,13 +111,13 @@ namespace ServerSocket
             Server.clients[playerID].levels.SendData();
         }
 
-        public static void ReceiveHarvestObject (byte[] packet) // Receive request from player to harvest a object
+        public static void ReceiveHarvestObject(byte[] packet) // Receive request from player to harvest a object
         {
             // Convert data
             int playerID = BitConverter.ToInt16(packet, 2);
             int objectType = BitConverter.ToInt16(packet, 4);
             int objectID = BitConverter.ToInt16(packet, 6);
-            
+
             // Use this data
             switch (objectType)
             {
@@ -133,7 +133,7 @@ namespace ServerSocket
                         }
                         else
                             PacketSender.SendTextMessage(true, Server.clients[playerID], string.Empty, "This tree is already being chopped or it is down.");
-                    }                    
+                    }
                     break;
             }
 

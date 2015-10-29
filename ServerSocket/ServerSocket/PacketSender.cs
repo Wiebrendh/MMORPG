@@ -8,8 +8,8 @@ namespace ServerSocket
 {
     public static class PacketSender
     {
-        
-        public static void PlayerConnected (string message, ClientData data, Socket client)
+
+        public static void PlayerConnected(string message, ClientData data, Socket client)
         {
             List<byte> packet = new List<byte>();
 
@@ -49,7 +49,7 @@ namespace ServerSocket
             PacketSender.SendPlayerConnect(data);
         }
 
-        public static void PlayerDisconnected (int id)
+        public static void PlayerDisconnected(int id)
         {
             List<byte> packet = new List<byte>();
 
@@ -58,11 +58,11 @@ namespace ServerSocket
             Server.clients[id].clientSocket.Send(packet.ToArray(), SocketFlags.None);
             Server.clients[id].Disconnect(); // Start disconnect function
         }
-        
-        public static void SendPlayerConnect (ClientData player)
+
+        public static void SendPlayerConnect(ClientData player)
         {
             List<byte> packet = new List<byte>();
-            
+
             packet.AddRange(BitConverter.GetBytes((ushort)1)); // Packet type
             packet.AddRange(BitConverter.GetBytes((ushort)player.id)); // Client id
             packet.AddRange(BitConverter.GetBytes((double)player.xPos)); // Client x pos
@@ -80,7 +80,7 @@ namespace ServerSocket
             }
         }
 
-        public static void SendPlayerDisconnect (ClientData player)
+        public static void SendPlayerDisconnect(ClientData player)
         {
             List<byte> packet = new List<byte>();
 
@@ -97,7 +97,7 @@ namespace ServerSocket
             }
         }
 
-        public static void SendPlayerPosition (int playerID)
+        public static void SendPlayerPosition(int playerID)
         {
             List<byte> packet = new List<byte>();
 
@@ -151,7 +151,7 @@ namespace ServerSocket
             }
         }
 
-        public static void SendObjectState (int type, int id, bool state)
+        public static void SendObjectState(int type, int id, bool state)
         {
             List<byte> packet = new List<byte>();
 

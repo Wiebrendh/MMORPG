@@ -31,4 +31,17 @@ public class LocalPlayer : MonoBehaviour
             sender.SendCurrentPos(new Vector2(this.transform.position.x, this.transform.position.z));
         }
 	}
+
+    void OnDrawGizmos ()
+    {
+        if (agent.hasPath)
+        {
+            NavMeshPath path = agent.path;
+            
+            foreach (Vector3 i in path.corners)
+            {
+                Gizmos.DrawCube(i, new Vector3(.25f, .25f, .25f));
+            }
+        }
+    }
 }

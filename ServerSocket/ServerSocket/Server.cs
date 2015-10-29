@@ -73,7 +73,7 @@ namespace ServerSocket
             }
         }
 
-        static void Start ()
+        static void Start()
         {
             // Create socket
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -97,7 +97,7 @@ namespace ServerSocket
         }
 
         static void Accept()
-        {            
+        {
             // Accept the connecting client
             Socket acceptedSocket = socket.Accept();
 
@@ -151,7 +151,7 @@ namespace ServerSocket
             }
         }
 
-        public static void StartWorldObjectsThread ()
+        public static void StartWorldObjectsThread()
         {
             // Restart function after 100 miliseconds
             System.Timers.Timer timer = new System.Timers.Timer(100);
@@ -159,7 +159,7 @@ namespace ServerSocket
             timer.Enabled = true;
         }
 
-        public static void WorldObjectsThread (object sender, ElapsedEventArgs e)
+        public static void WorldObjectsThread(object sender, ElapsedEventArgs e)
         {
             // Control trees
             foreach (TreeData tree in worldObjects[0])
@@ -169,14 +169,14 @@ namespace ServerSocket
                 {
                     tree.chopTimeLeft -= .1f;
                     tree.chopTimeLeft = (float)Math.Round(tree.chopTimeLeft, 1);
-                    
+
                     // If tree is chopped down
                     if (Math.Round(tree.chopTimeLeft, 1) == 0f)
                     {
                         tree.chopTimeLeft = 0;
                         tree.reupTimeLeft = 10;
                         tree.chopperClient.levels.AddXP(3, 25);
-                        PacketSender.SendObjectState(0, tree.id, false);          
+                        PacketSender.SendObjectState(0, tree.id, false);
                     }
                 }
 
@@ -185,7 +185,7 @@ namespace ServerSocket
                 {
                     tree.reupTimeLeft -= .1f;
                     tree.reupTimeLeft = (float)Math.Round(tree.reupTimeLeft, 1);
-                    
+
                     // If tree is chopped down
                     if (Math.Round(tree.reupTimeLeft, 1) == 0f)
                     {
@@ -196,7 +196,7 @@ namespace ServerSocket
             }
         }
 
-        public static ClientData GetPlayerByID (int id) // Get a player by his ID
+        public static ClientData GetPlayerByID(int id) // Get a player by his ID
         {
             // Loop through every player
             foreach (ClientData client in clients)
@@ -211,7 +211,7 @@ namespace ServerSocket
             return null;
         }
 
-        public static TreeData GetTreeByID (int id) // Get tree by his ID
+        public static TreeData GetTreeByID(int id) // Get tree by his ID
         {
             // Loop through every enemy
             foreach (TreeData tree in worldObjects[0])
@@ -226,7 +226,7 @@ namespace ServerSocket
             return null;
         }
     }
-    
+
     public class ClientData
     {
         // Client data
@@ -240,7 +240,7 @@ namespace ServerSocket
         public float xPos, zPos, xCurrPos, zCurrPos;
         public ClientLevels levels;
 
-        public ClientData (Socket _clientSocket, string _name) // Create new client
+        public ClientData(Socket _clientSocket, string _name) // Create new client
         {
             // Set client data
             clientSocket = _clientSocket;
@@ -264,8 +264,8 @@ namespace ServerSocket
             // Create client levels
             levels = new ClientLevels(this);
         }
-         
-        public void Connected (Socket _clientSocket) // Client rejoined
+
+        public void Connected(Socket _clientSocket) // Client rejoined
         {
             // Set client data
             clientSocket = _clientSocket;
@@ -282,7 +282,7 @@ namespace ServerSocket
             levels.SendData();
         }
 
-        public void Disconnect ()
+        public void Disconnect()
         {
             // Set client data
             clientSocket.Close();
@@ -295,7 +295,7 @@ namespace ServerSocket
             // Convert current pos to wanted pos
             xPos = ConvertToWalkPos(xCurrPos);
             zPos = ConvertToWalkPos(zCurrPos);
-            
+
             // Write to console
             Console.WriteLine("Player '{0}' disconnected.", name);
 
@@ -325,7 +325,7 @@ namespace ServerSocket
         public List<int> levels = new List<int>();
         public List<int> xp = new List<int>();
 
-        public ClientLevels (ClientData _client)
+        public ClientLevels(ClientData _client)
         {
             // Add client to this object
             client = _client;
@@ -341,7 +341,7 @@ namespace ServerSocket
             }
         }
 
-        public void AddXP (int skill, int amount)
+        public void AddXP(int skill, int amount)
         {
             // Add xp and check for level up
             xp[skill] += amount;
@@ -352,7 +352,7 @@ namespace ServerSocket
             SendData();
         }
 
-        public void SendData ()
+        public void SendData()
         {
             // Send level update to client
             List<byte> packet = new List<byte>();
@@ -390,7 +390,7 @@ namespace ServerSocket
         public float chopTimeLeft;
         public float reupTimeLeft;
 
-        public TreeData (int _id) // Create new tree
+        public TreeData(int _id) // Create new tree
         {
             id = _id;
         }
