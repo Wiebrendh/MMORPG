@@ -12,15 +12,20 @@ public class Chat : MonoBehaviour
     private float currentSendTime;
 
     public List<Text> messageBoxes = new List<Text>();
-
-    void Update()
+    
+    public void SendChatMessage()
     {
-        if (textField.text.Length > 0 && Time.time >= currentSendTime && Input.GetKeyDown(KeyCode.Return))
+        if (textField.text.Length > 0 && Time.time >= currentSendTime)
         {
             currentSendTime = Time.time + maxSendRate;
             sender.SendTextMessage(textField.text);
             textField.text = string.Empty;
         }
+    }
+
+    public void UIButtonMessage (string msg)
+    {
+        AddMessage(string.Empty, msg, true);
     }
 
     public void AddMessage (string sender, string message, bool gameNotification)
